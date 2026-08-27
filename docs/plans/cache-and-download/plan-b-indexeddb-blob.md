@@ -67,7 +67,7 @@ interface DownloadedEpisode {
 - `content-meta`：key=`${source}+${id}`，value=`DownloadedContent`
 
 ```typescript
-const db = await openDB('lunatv-cache', 1, {
+const db = await openDB('cineharbor-cache', 1, {
   upgrade(db) {
     db.createObjectStore('segments')
     db.createObjectStore('encryption-keys')

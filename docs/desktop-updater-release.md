@@ -32,8 +32,8 @@ Local publishing no longer needs `gh release create` or a logged-in `gh` session
 
 ## Local Key Material
 
-- Private key path: `.tauri-updater/lunatv-updater.key`
-- Public key path: `.tauri-updater/lunatv-updater.key.pub`
+- Private key path: `.tauri-updater/cineharbor-updater.key`
+- Public key path: `.tauri-updater/cineharbor-updater.key.pub`
 
 The `.tauri-updater/` directory is gitignored. The public key is already committed to `src-tauri/tauri.conf.json`.
 

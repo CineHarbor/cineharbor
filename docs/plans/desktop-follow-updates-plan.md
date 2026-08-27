@@ -316,7 +316,7 @@ export interface FollowRecord {
 
 建议命名：
 
-- 存储 key：`moontv_follows`
+- 存储 key：`cineharbor_follows`
 - 事件名：`followRecordsUpdated`
 - API：`/api/follows`
 

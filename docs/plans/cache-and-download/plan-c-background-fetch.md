@@ -32,7 +32,7 @@ Service Worker 监听 backgroundfetchsuccess 事件
 播放时 SW fetch 拦截 → Cache Storage 命中 → 离线播放
 ```
 
-页面关闭/锁屏 → 下载不中断，系统通知栏显示 "LunaTV 正在下载..."
+页面关闭/锁屏 → 下载不中断，系统通知栏显示 "CineHarbor 正在下载..."
 
 ## 架构
 
@@ -98,7 +98,7 @@ export function supportsBackgroundFetch(): boolean {
 // 下载成功：将所有响应存入 Cache Storage
 self.addEventListener('backgroundfetchsuccess', (event: BackgroundFetchSuccessEvent) => {
   event.waitUntil((async () => {
-    const cache = await caches.open('lunatv-offline-v1')
+    const cache = await caches.open('cineharbor-offline-v1')
     const records = await event.registration.matchAll()
     await Promise.all(
       records.map(async (record) => {

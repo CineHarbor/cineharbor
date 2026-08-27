@@ -5,7 +5,7 @@
 
 ## 背景
 
-从 LunaTV 硬分叉重建为 CineHarbor。目标形态对标 Stremio：Rust 核心 + 各端客户端 + Stremio 兼容 addon 协议。原仓库单仓平铺（5 个 crate + Next.js + Tauri + worker + 下载站混合在根目录），难以表达「核心 / 客户端 / addon」的边界。
+从旧项目硬分叉重建为 CineHarbor。目标形态对标 Stremio：Rust 核心 + 各端客户端 + Stremio 兼容 addon 协议。原仓库单仓平铺（5 个 crate + Next.js + Tauri + worker + 下载站混合在根目录），难以表达「核心 / 客户端 / addon」的边界。
 
 ## 决策
 

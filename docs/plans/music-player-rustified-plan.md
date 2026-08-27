@@ -2,7 +2,7 @@
 
 ## 目标
 
-在 LunaTV 中新增与“电影 / 剧集 / 动漫 / 综艺”同级的 `音乐` 模块，并提供一套接近网易云 / QQ 音乐体验的全局播放器。
+在 CineHarbor 中新增与“电影 / 剧集 / 动漫 / 综艺”同级的 `音乐` 模块，并提供一套接近网易云 / QQ 音乐体验的全局播放器。
 
 本方案同时满足两个前提：
 
@@ -23,18 +23,18 @@
 
 与本方案直接相关的现有文件：
 
-- [dev-plan/desktop-foundation/desktop-rustification-roadmap.md](/Users/jay-workstation/AI-CODE/LunaTV/dev-plan/desktop-foundation/desktop-rustification-roadmap.md:1)
-- [dev-plan/desktop-foundation/desktop-local-service-protocol-v1.md](/Users/jay-workstation/AI-CODE/LunaTV/dev-plan/desktop-foundation/desktop-local-service-protocol-v1.md:1)
-- [src/app/layout.tsx](/Users/jay-workstation/AI-CODE/LunaTV/src/app/layout.tsx:1)
-- [src/components/PageLayout.tsx](/Users/jay-workstation/AI-CODE/LunaTV/src/components/PageLayout.tsx:1)
-- [src/components/Sidebar.tsx](/Users/jay-workstation/AI-CODE/LunaTV/src/components/Sidebar.tsx:143)
-- [src/components/MobileBottomNav.tsx](/Users/jay-workstation/AI-CODE/LunaTV/src/components/MobileBottomNav.tsx:43)
-- [src/lib/transport/endpoint.ts](/Users/jay-workstation/AI-CODE/LunaTV/src/lib/transport/endpoint.ts:1)
-- [src/lib/runtime-config.ts](/Users/jay-workstation/AI-CODE/LunaTV/src/lib/runtime-config.ts:1)
-- [src/lib/runtime/public-config.ts](/Users/jay-workstation/AI-CODE/LunaTV/src/lib/runtime/public-config.ts:149)
-- [src/lib/admin.types.ts](/Users/jay-workstation/AI-CODE/LunaTV/src/lib/admin.types.ts:6)
-- [src/lib/config.ts](/Users/jay-workstation/AI-CODE/LunaTV/src/lib/config.ts:368)
-- [src/lib/desktop/tauri-client.ts](/Users/jay-workstation/AI-CODE/LunaTV/src/lib/desktop/tauri-client.ts:1)
+- [dev-plan/desktop-foundation/desktop-rustification-roadmap.md](/Users/jay-workstation/AI-CODE/CineHarbor/dev-plan/desktop-foundation/desktop-rustification-roadmap.md:1)
+- [dev-plan/desktop-foundation/desktop-local-service-protocol-v1.md](/Users/jay-workstation/AI-CODE/CineHarbor/dev-plan/desktop-foundation/desktop-local-service-protocol-v1.md:1)
+- [src/app/layout.tsx](/Users/jay-workstation/AI-CODE/CineHarbor/src/app/layout.tsx:1)
+- [src/components/PageLayout.tsx](/Users/jay-workstation/AI-CODE/CineHarbor/src/components/PageLayout.tsx:1)
+- [src/components/Sidebar.tsx](/Users/jay-workstation/AI-CODE/CineHarbor/src/components/Sidebar.tsx:143)
+- [src/components/MobileBottomNav.tsx](/Users/jay-workstation/AI-CODE/CineHarbor/src/components/MobileBottomNav.tsx:43)
+- [src/lib/transport/endpoint.ts](/Users/jay-workstation/AI-CODE/CineHarbor/src/lib/transport/endpoint.ts:1)
+- [src/lib/runtime-config.ts](/Users/jay-workstation/AI-CODE/CineHarbor/src/lib/runtime-config.ts:1)
+- [src/lib/runtime/public-config.ts](/Users/jay-workstation/AI-CODE/CineHarbor/src/lib/runtime/public-config.ts:149)
+- [src/lib/admin.types.ts](/Users/jay-workstation/AI-CODE/CineHarbor/src/lib/admin.types.ts:6)
+- [src/lib/config.ts](/Users/jay-workstation/AI-CODE/CineHarbor/src/lib/config.ts:368)
+- [src/lib/desktop/tauri-client.ts](/Users/jay-workstation/AI-CODE/CineHarbor/src/lib/desktop/tauri-client.ts:1)
 
 ## 结论先行
 
@@ -130,8 +130,8 @@ Music Providers
 
 新增与电影等同级的 `音乐` 菜单：
 
-- 桌面侧边栏：加入 [Sidebar.tsx](/Users/jay-workstation/AI-CODE/LunaTV/src/components/Sidebar.tsx:143) 的发现菜单区
-- 移动底部导航：加入 [MobileBottomNav.tsx](/Users/jay-workstation/AI-CODE/LunaTV/src/components/MobileBottomNav.tsx:43)
+- 桌面侧边栏：加入 [Sidebar.tsx](/Users/jay-workstation/AI-CODE/CineHarbor/src/components/Sidebar.tsx:143) 的发现菜单区
+- 移动底部导航：加入 [MobileBottomNav.tsx](/Users/jay-workstation/AI-CODE/CineHarbor/src/components/MobileBottomNav.tsx:43)
 
 建议导航 href 固定为：
 
@@ -191,7 +191,7 @@ Music Providers
 
 ### 放置位置
 
-播放器不能放在 `/music` 页面内部，必须挂在 [src/app/layout.tsx](/Users/jay-workstation/AI-CODE/LunaTV/src/app/layout.tsx:1) 的全局层。
+播放器不能放在 `/music` 页面内部，必须挂在 [src/app/layout.tsx](/Users/jay-workstation/AI-CODE/CineHarbor/src/app/layout.tsx:1) 的全局层。
 
 原因：
 
@@ -241,7 +241,7 @@ Music Providers
 
 ### 与当前布局的兼容要求
 
-当前 [PageLayout.tsx](/Users/jay-workstation/AI-CODE/LunaTV/src/components/PageLayout.tsx:57) 底部间距主要服务移动底部导航，后续需要改成统一的 CSS 变量布局：
+当前 [PageLayout.tsx](/Users/jay-workstation/AI-CODE/CineHarbor/src/components/PageLayout.tsx:57) 底部间距主要服务移动底部导航，后续需要改成统一的 CSS 变量布局：
 
 - `--mobile-bottom-nav-height`
 - `--music-mini-player-height`
@@ -300,7 +300,7 @@ Music Providers
 
 - `src/stores/musicPlayerStore.ts`
 
-实现风格参考 [downloadStore.ts](/Users/jay-workstation/AI-CODE/LunaTV/src/stores/downloadStore.ts:1)，采用 `zustand + persist`。
+实现风格参考 [downloadStore.ts](/Users/jay-workstation/AI-CODE/CineHarbor/src/stores/downloadStore.ts:1)，采用 `zustand + persist`。
 
 它只存：
 
@@ -422,7 +422,7 @@ interface PlayerQueueItem {
 
 - 前端实际调用统一经过 `music-client`
 - 前端不依赖这些接口背后是 Next route 还是 local service
-- 桌面 local service 应提供兼容路径 `/api/music/*`，以适配现有 [buildApiUrl](/Users/jay-workstation/AI-CODE/LunaTV/src/lib/transport/endpoint.ts:65) 的前缀规则
+- 桌面 local service 应提供兼容路径 `/api/music/*`，以适配现有 [buildApiUrl](/Users/jay-workstation/AI-CODE/CineHarbor/src/lib/transport/endpoint.ts:65) 的前缀规则
 
 ### `GET /api/music/sources`
 
@@ -568,7 +568,7 @@ interface PlayerQueueItem {
 
 ### 桌面 local service 建议新增的协议
 
-当前 [desktop-local-service-protocol-v1.md](/Users/jay-workstation/AI-CODE/LunaTV/dev-plan/desktop-foundation/desktop-local-service-protocol-v1.md:63) 尚未定义音乐接口，建议扩展：
+当前 [desktop-local-service-protocol-v1.md](/Users/jay-workstation/AI-CODE/CineHarbor/dev-plan/desktop-foundation/desktop-local-service-protocol-v1.md:63) 尚未定义音乐接口，建议扩展：
 
 - `GET /api/music/sources`
 - `GET /api/music/home`
@@ -603,7 +603,7 @@ interface PlayerQueueItem {
 
 ### 管理配置
 
-建议在 [AdminConfig](/Users/jay-workstation/AI-CODE/LunaTV/src/lib/admin.types.ts:6) 中新增：
+建议在 [AdminConfig](/Users/jay-workstation/AI-CODE/CineHarbor/src/lib/admin.types.ts:6) 中新增：
 
 ```ts
 MusicConfig?: {
@@ -743,16 +743,16 @@ src/app/media/audio/stream/route.ts
 桌面数据面成熟后，对应能力逐步迁入：
 
 ```text
-crates/moontv-core
+crates/cineharbor-core
   music domain models
 
-crates/moontv-network
+crates/cineharbor-network
   music providers / upstream adapters
 
-crates/moontv-profile
+crates/cineharbor-profile
   music favorites / recent plays / records
 
-crates/moontv-local-service
+crates/cineharbor-local-service
   /api/music/*
   /media/audio/stream
 ```

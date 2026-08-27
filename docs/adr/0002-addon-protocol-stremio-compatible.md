@@ -5,7 +5,7 @@
 
 ## 背景
 
-原 LunaTV 的内容源（bangumi / douban / live 等）硬编码在 Web 端 API 路由内，新增源要改 core，不可扩展。目标架构需要把「找源」从「改核心」解耦为 addon 插件生态。
+原项目的内容源（bangumi / douban / live 等）硬编码在 Web 端 API 路由内，新增源要改 core，不可扩展。目标架构需要把「找源」从「改核心」解耦为 addon 插件生态。
 
 ## 决策
 

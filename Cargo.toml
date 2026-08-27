@@ -5,7 +5,7 @@ resolver = "2"
 [workspace.package]
 version = "0.1.0"
 edition = "2024"
-# 注意：上游 LunaTV 仓库的 LICENSE 实为 CC BY-NC-SA 4.0（其 Cargo.toml 误写为
+# 注意：上游旧仓库的 LICENSE 实为 CC BY-NC-SA 4.0（其 Cargo.toml 误写为
 # GPL-3.0-only、README 徽章误写为 MIT）。本仓以 LICENSE 文件为准，授权元数据保持一致。
 # 待厘清上游代码作者权后，可再决策是否切换许可（见 docs/PLAN.md 开放问题）。
 license = "CC-BY-NC-SA-4.0"

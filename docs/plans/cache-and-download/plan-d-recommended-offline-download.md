@@ -1,4 +1,4 @@
-# LunaTV 离线下载推荐实施方案
+# CineHarbor 离线下载推荐实施方案
 
 配套执行清单见 `dev-plan/cache-and-download/plan-d-implementation-checklist.md`。
 
@@ -7,7 +7,7 @@
 
 ## 背景
 
-LunaTV 当前已经具备 PWA、HLS.js、ArtPlayer、Zustand 和基础本地缓存能力，但离线下载能力仍为空白。结合现有代码结构，最稳妥的方向不是重做播放器，也不是直接押注 Background Fetch，而是：
+CineHarbor 当前已经具备 PWA、HLS.js、ArtPlayer、Zustand 和基础本地缓存能力，但离线下载能力仍为空白。结合现有代码结构，最稳妥的方向不是重做播放器，也不是直接押注 Background Fetch，而是：
 
 1. 先把 VOD 播放链路统一到 same-origin 代理 URL
 2. 再通过页面侧下载管理器把 HLS 资源主动写入 Cache Storage
@@ -270,8 +270,8 @@ interface DownloadStore {
 
 缓存名固定为：
 
-- `lunatv-vod-manifest-v1`
-- `lunatv-vod-media-v1`
+- `cineharbor-vod-manifest-v1`
+- `cineharbor-vod-media-v1`
 
 ### `src/lib/download/resource-index.ts`
 
@@ -308,7 +308,7 @@ interface DownloadStore {
 
 规范：
 
-- VOD 新代理统一使用 `source` 参数，不复用直播链路中的 `moontv-source`
+- VOD 新代理统一使用 `source` 参数，不复用直播链路中的 `cineharbor-source`
 - query 参数顺序固定为 `source` 在前、`url` 在后
 - 不允许在可缓存 URL 上附加时间戳、调试标记、随机参数
 - manifest 重写、播放器入口、下载器、删除逻辑都必须调用同一组 helper
@@ -473,8 +473,8 @@ interface DownloadStore {
 
 清理范围：
 
-- `lunatv-vod-manifest-v1`
-- `lunatv-vod-media-v1`
+- `cineharbor-vod-manifest-v1`
+- `cineharbor-vod-media-v1`
 - `resource-index` IndexedDB
 - `downloadStore`
 
@@ -664,4 +664,4 @@ interface DownloadStore {
 2. C 作为二期 Chromium 增强
 3. B 不按原案实施，仅保留为未来“强控制离线播放”储备方向
 
-这是当前最符合 LunaTV 代码现状、实现成本和风险控制的路径。
+这是当前最符合 CineHarbor 代码现状、实现成本和风险控制的路径。

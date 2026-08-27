@@ -2,7 +2,7 @@
 
 ## 目标
 
-为 LunaTV 增加两个默认关闭、按需开启的播放增强能力：
+为 CineHarbor 增加两个默认关闭、按需开启的播放增强能力：
 
 1. `去磨皮修正`
    目标是减轻国产综艺中常见的过度磨皮、过白高光和塑料感。
@@ -34,7 +34,7 @@ Rust 本地服务新增了独立配置块，并升级为级别化配置：
 相关路径：
 
 - `config.example.json`
-- `crates/moontv-local-service/src/lib.rs`
+- `crates/cineharbor-local-service/src/lib.rs`
 
 本地服务会把默认级别和布尔兼容位同时投影到 `/api/runtime/public-config`，前端再合并到 `window.RUNTIME_CONFIG`。
 
@@ -56,7 +56,7 @@ Rust 本地服务新增了独立配置块，并升级为级别化配置：
 - 读取运行时默认值
 - 读取/写入本地 `localStorage`
 - 兼容旧版布尔开关存储
-- 通过 `lunatv:player-enhancements-updated` 广播设置变化
+- 通过 `cineharbor:player-enhancements-updated` 广播设置变化
 
 本地存储 key：
 
@@ -177,7 +177,7 @@ Rust 本地服务新增了独立配置块，并升级为级别化配置：
 - `pnpm typecheck`
 - `cargo check --workspace`
 - `pnpm test -- --runTestsByPath src/lib/player-enhancements.test.ts src/lib/player-enhancement-runtime.test.ts`
-- `cargo test -p moontv-local-service runtime_public_config_endpoint_projects_desktop_settings`
+- `cargo test -p cineharbor-local-service runtime_public_config_endpoint_projects_desktop_settings`
 - 改动文件 ESLint 检查通过
 
 ## 后续可选优化
