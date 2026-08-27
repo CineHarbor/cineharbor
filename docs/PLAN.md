@@ -33,6 +33,6 @@
 ## 开放问题
 
 1. **许可证**：上游 `LICENSE` 为 CC BY-NC-SA 4.0，但 `Cargo.toml` 误写 GPL-3.0-only、README 徽章误写 MIT。本仓暂按 LICENSE 文件（CC BY-NC-SA 4.0）发布。若想换成 GPL/MIT，需先厘清继承代码的作者权，或重写无关本体的部分。
-2. **Stremio 兼容范围**：兼容到协议互操（可装其 addon）还是仅契约形状相同？关系 P2 的实现边界。
+2. ~~**Stremio 兼容范围**~~ → **已解决（2026-08-27）**：完全跟随 Stremio 协议，双向互操（本地 host 可加载 Stremio addon；我们的参考 addon 可被 Stremio 官方客户端加载）。契约冻结于 `docs/addon-protocol.md`（ADR-0002）。
 3. **sqlite schema 版本**：全新版本号从 1 起步，还是保留上游 200.x 语义再 +1？老数据不迁移的前提下建议从 1 起步。
 4. **桌面 updater 渠道**：旧 LunaTV 用户不再平滑过渡（决策 4 已定），新渠道直接发布 cineharbor-desktop。
