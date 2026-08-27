@@ -1,0 +1,43 @@
+[workspace]
+members = ["crates/*"]
+resolver = "2"
+
+[workspace.package]
+version = "0.1.0"
+edition = "2024"
+# 注意：上游 LunaTV 仓库的 LICENSE 实为 CC BY-NC-SA 4.0（其 Cargo.toml 误写为
+# GPL-3.0-only、README 徽章误写为 MIT）。本仓以 LICENSE 文件为准，授权元数据保持一致。
+# 待厘清上游代码作者权后，可再决策是否切换许可（见 docs/PLAN.md 开放问题）。
+license = "CC-BY-NC-SA-4.0"
+
+[workspace.dependencies]
+anyhow = "1.0.100"
+argon2 = "0.5.3"
+axum = { version = "0.8.6", features = ["macros"] }
+base64 = "0.22.1"
+bs58 = "0.5.1"
+clap = { version = "4.5.53", features = ["derive", "env"] }
+futures = "0.3.31"
+html-escape = "0.2.13"
+hyper = { version = "1.10.1", features = ["http1", "server"] }
+hyper-util = { version = "0.1.20", features = ["http1", "server", "service", "tokio"] }
+minisign-verify = "0.2"
+regex = "1.12.2"
+reqwest = { version = "0.12.24", default-features = false, features = ["brotli", "cookies", "deflate", "gzip", "http2", "json", "rustls-tls", "stream"] }
+rand = "0.9.4"
+rfd = "0.17.2"
+rusqlite = { version = "0.32.1", features = ["bundled"] }
+semver = "1.0.27"
+serde = { version = "1.0.228", features = ["derive"] }
+serde_json = "1.0.145"
+sha2 = "0.10.9"
+tauri = "2.9.1"
+tauri-build = "2.5.1"
+tauri-plugin-process = "2.3.1"
+tauri-plugin-updater = "2.10.1"
+thiserror = "2.0.17"
+tokio = { version = "1.48.0", features = ["macros", "net", "process", "rt-multi-thread", "signal", "sync", "time"] }
+tower = { version = "0.5.2", features = ["util"] }
+tracing = "0.1.41"
+tracing-subscriber = { version = "0.3.20", features = ["env-filter", "fmt"] }
+url = "2.5.7"

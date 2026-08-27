@@ -1,0 +1,42 @@
+# dependencies
+/node_modules
+**/node_modules
+/.pnp
+.pnp.js
+
+# rust
+/target
+**/target/
+
+# next.js
+apps/cineharbor-web/.next/
+apps/cineharbor-web/out/
+next-env.d.ts
+*.tsbuildinfo
+
+# builds
+/dist
+**/dist/
+/desktop-shell-dist/
+/desktop-release/
+/download-site-dist/
+
+# env
+.env
+.env*.local
+
+# cloud / edge
+.vercel
+.open-next/
+.wrangler/
+
+# misc
+.DS_Store
+*.pem
+.history/
+/tmp/
+.codegraph/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*

@@ -1,0 +1,9 @@
+packages:
+  - "apps/*"
+  - "addons/*"
+  - "services/*"
+  - "sites/*"
+
+allowBuilds:
+  javascript-obfuscator: false
+  unrs-resolver: false
