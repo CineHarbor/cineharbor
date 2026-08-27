@@ -9,6 +9,18 @@
 | addon 协议 | 兼容 Stremio 协议（实现其 manifest/catalog/meta/streams 契约，可用现成公开源） |
 | 老用户数据 | 不迁移（不承诺读旧客户端的 sqlite 数据） |
 
+## 仓库拓扑（ADR-0003，2026-08-27 拆多仓）
+
+| 仓库 | 内容 | 状态 |
+| --- | --- | --- |
+| `cineharbor`（本仓） | 门面：README、PLAN、ADR、品牌史 | ✅ |
+| `cineharbor-core` | 6 crate：core/storage/sync/profile/download/local-service | ✅ 骨架 |
+| `cineharbor-addon-sdk` | 2 crate：addon-protocol/addon-sdk + protocol.md | ✅ 骨架 |
+| `cineharbor-web` | Next.js 客户端（P4） | ✅ 占位 |
+| `cineharbor-desktop` | Tauri 客户端（P5） | ✅ 占位 |
+| `cineharbor-worker` | 边缘代理（P6） | ✅ 占位 |
+| `cineharbor-download-site` | 下载站（P6） | ✅ 占位 |
+
 ## 阶段计划
 
 | 阶段 | 内容 | 产出 | 状态 |
@@ -28,6 +40,6 @@
 ## 开放问题
 
 1. **许可证**：上游 `LICENSE` 为 CC BY-NC-SA 4.0，但 `Cargo.toml` 误写 GPL-3.0-only、README 徽章误写 MIT。本仓暂按 LICENSE 文件（CC BY-NC-SA 4.0）发布。若想换成 GPL/MIT，需先厘清继承代码的作者权，或重写无关本体的部分。
-2. ~~**Stremio 兼容范围**~~ → **已解决（2026-08-27）**：完全跟随 Stremio 协议，双向互操（本地 host 可加载 Stremio addon；我们的参考 addon 可被 Stremio 官方客户端加载）。契约冻结于 `docs/addon-protocol.md`（ADR-0002）。
+2. ~~**Stremio 兼容范围**~~ → **已解决（2026-08-27）**：完全跟随 Stremio 协议，双向互操（本地 host 可加载 Stremio addon；我们的参考 addon 可被 Stremio 官方客户端加载）。契约冻结于 `cineharbor-addon-sdk` 仓的 `protocol.md`（ADR-0002）。
 3. ~~**sqlite schema 版本**~~ → **已解决（2026-08-27）**：全新从 `1` 起步（老数据不迁移，无兼容包袱）。
 4. **桌面 updater 渠道**：旧客户端用户不再平滑过渡（决策 4 已定），新渠道直接发布 cineharbor-desktop。

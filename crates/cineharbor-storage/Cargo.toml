@@ -1,7 +1,0 @@
-[package]
-name = "cineharbor-storage"
-version.workspace = true
-edition.workspace = true
-license.workspace = true
-
-[dependencies]

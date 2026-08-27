@@ -17,7 +17,7 @@
 - **双向互操**：
   - 消费侧：`cineharbor-local-service` 作为 addon host，能加载并聚合任意 Stremio 兼容 addon；
   - 供给侧：我们的参考 addon（bangumi / douban / live）按同一契约实现，可被 Stremio 官方客户端直接加载。
-- 契约冻结于 `docs/addon-protocol.md`。
+- 契约冻结于 `cineharbor-addon-sdk` 仓库的 [protocol.md](../../cineharbor-addon-sdk/protocol.md)。
 
 ## 理由
 

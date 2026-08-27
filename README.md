@@ -1,44 +1,43 @@
 # CineHarbor
 
-> 🎬 多源汇流、自由播放的跨平台影视聚合播放器生态。
+> 🎬 多源汇流、自由播放的跨平台影视聚合播放器生态 —— 对标 Stremio 的三层架构：Rust 核心 + 各端客户端 + Stremio 兼容 addon 协议。
 
-CineHarbor 是一个对标 Stremio 的三层架构开源影视聚合项目：**Rust 核心 + 各端客户端 + Stremio 兼容的内容源 addon 协议**。所有支流最终泊入同一个港湾——所有内容源经由统一协议汇入同一个播放器。
+本仓是组织的**门面仓**（`CineHarbor/cineharbor`）：存放整体计划、架构决策（ADR）、品牌史，代码分散在各专业化仓库。
 
-## 目录
+## 仓库拓扑
+
+| 仓库 | 职责 | 对应 Stremio |
+| --- | --- | --- |
+| [cineharbor-core](https://github.com/CineHarbor/cineharbor-core) | Rust 核心：storage/sync/profile/download + local-service + core 门面 | `stremio-core` |
+| [cineharbor-addon-sdk](https://github.com/CineHarbor/cineharbor-addon-sdk) | addon 协议与 SDK（+ 协议契约 protocol.md） | `stremio-addon-sdk` |
+| [cineharbor-web](https://github.com/CineHarbor/cineharbor-web) | Web 客户端（Next.js + PWA） | `stremio-web` |
+| [cineharbor-desktop](https://github.com/CineHarbor/cineharbor-desktop) | 桌面客户端（Tauri） | `stremio-shell` |
+| [cineharbor-worker](https://github.com/CineHarbor/cineharbor-worker) | 边缘代理（Cloudflare） | — |
+| [cineharbor-download-site](https://github.com/CineHarbor/cineharbor-download-site) | 下载/发布站 | — |
+
+> GitHub 链接在 push 后生效，在此之前以本地目录 `/Users/jay/Code/cineharbor-*` 为准。
+
+## 依赖图
 
 ```
-apps/                        客户端
-  cineharbor-web/            Web 客户端（Next.js + PWA）
-  cineharbor-desktop/        桌面客户端（Tauri）
-crates/                      Rust 工作区（core + addon 协议）
-  cineharbor-core/           核心门面：聚合 storage/sync/profile/download
-  cineharbor-storage/        本地持久化（sqlite）
-  cineharbor-sync/           云端/跨端同步
-  cineharbor-profile/        用户配置与鉴权
-  cineharbor-download/       下载执行器
-  cineharbor-local-service/  本地守护服务 + addon host
-  cineharbor-addon-protocol/ Stremio 兼容契约
-  cineharbor-addon-sdk/      addon 开发 SDK
-addons/                      参考 addon（bangumi / douban / live …）
-services/cineharbor-worker/  Cloudflare 边缘代理
-sites/cineharbor-download-site/  下载站
-docs/                        架构 ADR、迁移来的开发计划、品牌过程记录
+cineharbor-addon-sdk ──▶ cineharbor-core（local-service 作 addon host）
+                              ▲
+                              └── cineharbor-desktop（嵌入 local-service、链 core 库）
+cineharbor-web ──HTTP/RPC──▶ cineharbor-core/local-service
+cineharbor-worker、cineharbor-download-site：独立
 ```
-
-## 快速开始
-
-```bash
-cargo check --workspace   # Rust 核心
-```
-
-Web / 桌面客户端将在各自阶段加入 workspace（见 `docs/PLAN.md`）。
-
-## 许可证
-
-CC BY-NC-SA 4.0（沿用上游公开授权；上游元数据存在 GPL/MIT 与其 LICENSE 不一致的问题，见 `docs/PLAN.md` 开放问题）。
 
 ## 文档
 
-- 开发计划与决策记录：`docs/PLAN.md`
-- 架构决策：`docs/adr/`
-- 品牌过程记录：`docs/brand/cineharbor-process-log.md`
+- `docs/PLAN.md` —— 已批准决策与分阶段计划（P0–P6）
+- `docs/adr/` —— 架构决策记录
+- `docs/brand/cineharbor-process-log.md` —— 品牌过程记录（仅此处保留旧名历史）
+- `docs/plans/` —— 从旧项目迁入的开发计划，随工作落地归属到对应仓库
+
+## 协议
+
+内容源 addon 完全跟随 [Stremio addon 协议](https://github.com/Stremio/stremio-addon-sdk)，契约在 `cineharbor-addon-sdk` 仓的 `protocol.md`。
+
+## 许可证
+
+CC BY-NC-SA 4.0（继承自上游公开授权；许可元数据问题见 `docs/PLAN.md` 开放问题）。
