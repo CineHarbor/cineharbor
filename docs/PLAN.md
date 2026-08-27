@@ -16,7 +16,7 @@
 | `cineharbor`（本仓） | 门面：README、PLAN、ADR、品牌史 | ✅ |
 | `cineharbor-core` | 7 crate：core/storage/sync/profile/download/local-service/addon-host | ✅ P1 / 🚧 P3 |
 | `cineharbor-addon-sdk` | 2 crate：addon-protocol/addon-sdk + protocol.md | ✅ 骨架 |
-| `cineharbor-web` | Next.js 客户端（P4） | ✅ 占位 |
+| `cineharbor-web` | Next.js 客户端（P4） | 🚧 源码迁入+构建通过 |
 | `cineharbor-desktop` | Tauri 客户端（P5） | ✅ 占位 |
 | `cineharbor-worker` | 边缘代理（P6） | ✅ 占位 |
 | `cineharbor-download-site` | 下载站（P6） | ✅ 占位 |
@@ -29,7 +29,7 @@
 | **P1 core 落地** | 5 个 crate 迁入（storage/sync/profile/download/local-service），新建 core 门面；清旧品牌字符串 | Rust core 编译通过 | ✅ 完成 |
 | **P2 addon 协议/SDK** | Stremio 兼容契约 + SDK；bangumi/douban/live 抽成参考 addon（douban 随 P4） | 首个 addon 跑通 streams 聚合 | ✅ 协议/SDK/bangumi+live 参考 addon |
 | **P3 local-service 重构** | 变 addon host + 统一数据出口；桌面端不再 Tauri command 直连 | 本地 daemon 可托管 addon | 🚧 host 引擎+local-service 挂载✅；内置 addon 注册+客户端消费随 P4/P5 |
-| **P4 Web 客户端** | `src/` 迁入 apps/cineharbor-web，清旧品牌类名与旧 manifest；数据访问切 core/RPC | cineharbor-web 起服务 | ⏳ |
+| **P4 Web 客户端** | 旧 Next.js 应用迁入 cineharbor-web，清旧品牌；数据访问切 core 的 /addons 聚合 | cineharbor-web 起服务 | 🚧 迁移+rebrand+typecheck+build✅；切 /addons 与 douban 参考 addon 待办 |
 | **P5 桌面客户端** | Tauri 壳改名 cineharbor-desktop，productName/identifier/updater 换新 | 打包成功 | ⏳ |
 | **P6 周边** | worker、proxy、下载站迁入改名；logo 冻结后换 favicon/icons/PWA | 品牌一致 | ⏳ |
 
