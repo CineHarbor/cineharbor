@@ -9,7 +9,7 @@
 | 仓库 | 职责 | 对应 Stremio |
 | --- | --- | --- |
 | [cineharbor-core](https://github.com/CineHarbor/cineharbor-core) | Rust 核心：storage/sync/profile/download + local-service + core 门面 | `stremio-core` |
-| [cineharbor-addon-sdk](https://github.com/CineHarbor/cineharbor-addon-sdk) | addon 协议与 SDK（+ 协议契约 protocol.md） | `stremio-addon-sdk` |
+| [cineharbor-addon-sdk](https://github.com/CineHarbor/cineharbor-addon-sdk) | addon 协议 + SDK + 参考 addon（bangumi/live），+ 协议契约 protocol.md | `stremio-addon-sdk` |
 | [cineharbor-web](https://github.com/CineHarbor/cineharbor-web) | Web 客户端（Next.js + PWA） | `stremio-web` |
 | [cineharbor-desktop](https://github.com/CineHarbor/cineharbor-desktop) | 桌面客户端（Tauri） | `stremio-shell` |
 | [cineharbor-worker](https://github.com/CineHarbor/cineharbor-worker) | 边缘代理（Cloudflare） | — |

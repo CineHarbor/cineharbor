@@ -27,7 +27,7 @@
 | --- | --- | --- | --- |
 | **P0 骨架** | git init + 双 workspace + 8 crate 占位 + CI + 文档 | 空仓可 `cargo check`、CI 就绪 | ✅ 完成 |
 | **P1 core 落地** | 5 个 crate 迁入（storage/sync/profile/download/local-service），新建 core 门面；清旧品牌字符串 | Rust core 编译通过 | ✅ 完成 |
-| **P2 addon 协议/SDK** | Stremio 兼容契约 + SDK；bangumi/douban/live 抽成参考 addon | 首个 addon 跑通 streams 聚合 | 🚧 协议✅ 客户端✅ 供给侧+hello✅；真实源参考 addon 待办 |
+| **P2 addon 协议/SDK** | Stremio 兼容契约 + SDK；bangumi/douban/live 抽成参考 addon（douban 随 P4） | 首个 addon 跑通 streams 聚合 | ✅ 协议/SDK/bangumi+live 参考 addon |
 | **P3 local-service 重构** | 变 addon host + 统一数据出口；桌面端不再 Tauri command 直连 | 本地 daemon 可托管 addon | ⏳ |
 | **P4 Web 客户端** | `src/` 迁入 apps/cineharbor-web，清旧品牌类名与旧 manifest；数据访问切 core/RPC | cineharbor-web 起服务 | ⏳ |
 | **P5 桌面客户端** | Tauri 壳改名 cineharbor-desktop，productName/identifier/updater 换新 | 打包成功 | ⏳ |

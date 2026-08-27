@@ -15,7 +15,7 @@
 | --- | --- | --- | --- |
 | `cineharbor` | docs-only | 组织门面：README、PLAN、ADR、品牌史、迁移中的旧开发计划 | (org 级入口) |
 | `cineharbor-core` | Rust/cargo | crate：core、storage、sync、profile、download、local-service | `stremio-core` |
-| `cineharbor-addon-sdk` | Rust/cargo | crate：addon-protocol、addon-sdk + protocol.md | `stremio-addon-sdk` |
+| `cineharbor-addon-sdk` | Rust/cargo | crate：addon-protocol、addon-sdk、参考 addon（bangumi/live） + protocol.md | `stremio-addon-sdk` |
 | `cineharbor-web` | Node/Next.js | Web 客户端 + PWA | `stremio-web` |
 | `cineharbor-desktop` | Rust/Tauri | 桌面壳 | `stremio-shell` |
 | `cineharbor-worker` | Node/CF | 边缘代理 worker | — |
@@ -35,9 +35,9 @@ cineharbor-worker：独立边缘代理；cineharbor-download-site：独立静态
 ## 跨仓规则
 
 - 每个仓库独立 `0.1.0` 起步、独立 CI、独立发版、独立权限。
-- 跨仓依赖走**发布产物**（crates.io / 私有 registry）+ git tag 引用；本地协作用 path 或 yalc/link。
+- 跨仓依赖走**发布产物**（crates.io / 私有 registry）+ git tag 引用；本地协作用 path 或 yalc/link。Rust crate（addon-protocol/addon-sdk）尚未发布 crates.io——发布需 org owner 提供 crates.io token，未发布前 P3 接 local-service 时用 path 依赖过渡。
 - 协议字段变更（addon-sdk）属跨仓 breaking change：先发 sdk 版本，再升 core/web/desktop 引用点。
-- 参考 addon（bangumi/douban/live）P2 再建 `cineharbor-addons` 仓，暂不占位。
+- 参考 addon（bangumi/live；douban 随 P4 补齐）暂放 addon-sdk 仓的 `crates/cineharbor-addon-*`，用 workspace path 依赖；待 SDK 发布 crates.io 后再拆独立 `cineharbor-addons` 仓（未发布的 git 依赖无法被外部仓库直接消费）。
 
 ## 影响
 
