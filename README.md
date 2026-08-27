@@ -27,6 +27,11 @@ cineharbor-web ──HTTP/RPC──▶ cineharbor-core/local-service
 cineharbor-worker、cineharbor-download-site：独立
 ```
 
+## 开发约定
+
+- `cineharbor-core` 与 `cineharbor-addon-sdk` 两仓的推送一律走 `github.com-matt` SSH 别名（`git remote set-url origin git@github.com-matt:CineHarbor/<repo>.git`）；其余仓走 HTTPS + gh 凭据助手。
+- 原因：gh OAuth token 缺 `workflow` scope，无法推送含 `.github/workflows/` 的提交；`github.com-matt` SSH 身份为 mattamior（org admin），不受此限。
+
 ## 文档
 
 - `docs/PLAN.md` —— 已批准决策与分阶段计划（P0–P6）
