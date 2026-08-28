@@ -3,9 +3,10 @@
 # Requires: macOS qlmanage (WebKit), sips, iconutil, python3 (stdlib).
 set -euo pipefail
 
-BRAND="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/assets/brand"
-WEB="/Users/jay/Code/cineharbor-web/public"
-DESK="/Users/jay/Code/cineharbor-desktop/src-tauri/icons"
+UMBRELLA="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+BRAND="$UMBRELLA/assets/brand"
+WEB="$UMBRELLA/../cineharbor-web/public"
+DESK="$UMBRELLA/../cineharbor-desktop/src-tauri/icons"
 TMP="$(mktemp -d)"
 trap 'rm -rf "$TMP"' EXIT
 
