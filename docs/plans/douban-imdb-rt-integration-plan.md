@@ -28,11 +28,11 @@
 
 相关文件：
 
-- [src/lib/types.ts](/Users/jay/Code/CineHarbor/src/lib/types.ts:82)
-- [src/app/search/page.tsx](/Users/jay/Code/CineHarbor/src/app/search/page.tsx:42)
-- [src/components/VideoCard.tsx](/Users/jay/Code/CineHarbor/src/components/VideoCard.tsx:1)
-- [src/lib/douban-rating.ts](/Users/jay/Code/CineHarbor/src/lib/douban-rating.ts:1)
-- [src/app/api/douban/ratings/route.ts](/Users/jay/Code/CineHarbor/src/app/api/douban/ratings/route.ts:1)
+- [src/lib/types.ts](/Users/jay/Code/CineHarbor/cineharbor-web/src/lib/types.ts:82)
+- [src/app/search/page.tsx](/Users/jay/Code/CineHarbor/cineharbor-web/src/app/search/page.tsx:42)
+- [src/components/VideoCard.tsx](/Users/jay/Code/CineHarbor/cineharbor-web/src/components/VideoCard.tsx:1)
+- [src/lib/douban-rating.ts](/Users/jay/Code/CineHarbor/cineharbor-web/src/lib/douban-rating.ts:1)
+- [src/app/api/douban/ratings/route.ts](/Users/jay/Code/CineHarbor/cineharbor-web/src/app/api/douban/ratings/route.ts:1)
 
 ## 总体架构
 
@@ -286,7 +286,7 @@ type ResolvedRatingPayload = {
 
 ### P0：统一评分链路落地，但内部先只接豆瓣
 
-- [src/lib/types.ts](/Users/jay/Code/CineHarbor/src/lib/types.ts:82)
+- [src/lib/types.ts](/Users/jay/Code/CineHarbor/cineharbor-web/src/lib/types.ts:82)
   - 增加统一评分模型
 - `src/lib/ratings-cache.ts`
   - 新增评分缓存层
@@ -294,9 +294,9 @@ type ResolvedRatingPayload = {
   - 新增评分聚合入口
 - `src/app/api/ratings/batch/route.ts`
   - 新增统一 batch API
-- [src/app/search/page.tsx](/Users/jay/Code/CineHarbor/src/app/search/page.tsx:42)
+- [src/app/search/page.tsx](/Users/jay/Code/CineHarbor/cineharbor-web/src/app/search/page.tsx:42)
   - 搜索页改接统一评分接口
-- [src/components/VideoCard.tsx](/Users/jay/Code/CineHarbor/src/components/VideoCard.tsx:1)
+- [src/components/VideoCard.tsx](/Users/jay/Code/CineHarbor/cineharbor-web/src/components/VideoCard.tsx:1)
   - 新增 `ratings` 展示能力
 
 目标：
@@ -314,7 +314,7 @@ type ResolvedRatingPayload = {
   - 新增匹配层
 - `src/lib/ratings-resolver.ts`
   - 接入 IMDb provider
-- [src/app/play/page.tsx](/Users/jay/Code/CineHarbor/src/app/play/page.tsx:775)
+- [src/app/play/page.tsx](/Users/jay/Code/CineHarbor/cineharbor-web/src/app/play/page.tsx:775)
   - 详情页补 IMDb 展示
 
 目标：
@@ -327,11 +327,11 @@ type ResolvedRatingPayload = {
   - 新增 RT provider
 - `src/lib/ratings-resolver.ts`
   - 接入 RT provider
-- [src/components/VideoCard.tsx](/Users/jay/Code/CineHarbor/src/components/VideoCard.tsx:1)
+- [src/components/VideoCard.tsx](/Users/jay/Code/CineHarbor/cineharbor-web/src/components/VideoCard.tsx:1)
   - 列表页支持 `RT xx%`
-- [src/app/play/page.tsx](/Users/jay/Code/CineHarbor/src/app/play/page.tsx:775)
+- [src/app/play/page.tsx](/Users/jay/Code/CineHarbor/cineharbor-web/src/app/play/page.tsx:775)
   - 详情页展示 `Tomatometer`
-- [README.md](/Users/jay/Code/CineHarbor/README.md:1)
+- [README.md](/Users/jay/Code/CineHarbor/cineharbor/README.md:1)
   - 补环境变量和部署说明
 
 目标：
