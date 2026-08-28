@@ -44,8 +44,8 @@
 | --- | --- | --- | --- | --- |
 | 2026-08-27 | 现有品牌名 MoonTV、包名 `moontv`、目录名 `LunaTV` | `README.md` / `package.json` / 工作目录 | 旧品牌命名与天文意象 | 已记录 |
 | 2026-08-27 | `public/manifest.json` name=MoonTV、`background_color`=#000000 | `public/manifest.json` | 旧品牌资产与深色底 | 已记录 |
-| 2026-08-27 | 现有 logo：`public/logo.png`、`public/favicon.ico`、`public/icons/icon-*.png` | `public/` | 旧品牌图形资产位置 | 待替换 |
-| 2026-08-27 | CSS 类名 `luna-*`（如 `luna-section-title`）散落于 `src/app/page.tsx` | `src/app/page.tsx` | 旧品牌前缀在实现中的残留 | 待清理 |
+| 2026-08-27 | 现有 logo：`public/logo.png`、`public/favicon.ico`、`public/icons/icon-*.png` | `public/` | 旧品牌图形资产位置 | 已替换（2026-08-28） |
+| 2026-08-27 | CSS 类名 `luna-*`（如 `luna-section-title`）散落于 `src/app/page.tsx` | `src/app/page.tsx` | 旧品牌前缀在实现中的残留 | 已清理（→ `ch-*`，2026-08-28） |
 | 2026-08-27 | 用户三项命名决策：① 覆盖整个生态平台 ② 彻底跳出天文意象 ③ 英文优先全球可用 | 会话问答（ask_user_question） | 命名战略边界 | 已批准 |
 | 2026-08-27 | Fluma 撞名：fluma.in（印度 AI 网红营销平台，预发布）+ 同名 iOS T 恤购物 App（RAPID ACCELERATION INDIA），行业类别不相交但检索混淆成立 | web_search + apps.apple.com | Fluma 不可沿用 | 已确认 |
 | 2026-08-27 | 候选拉网初检：Talweg/Rillow 近零撞名且 npm、crates.io 均未注册；Rilo（rilo.tv 同类自托管影视平台）、Confluo（Berkeley OSS + Confluent 音近）、Runnel/Lotic/Aflux 均有占用，排除 | web_search + npm registry + crates.io API | 替代候选收敛空间 | 已确认 |
@@ -128,7 +128,7 @@
 | CineHarbor 是否有既有含义/语源冲突 | 推断 | cine-（电影，国际通用词根）+ harbor（港湾）均为高频英语词；本轮联网检索不可用，未能核实既有同名品牌 | 恢复联网后补查 |
 | 备选池启用顺序 | 已决策 | CinePlay（需先撞名核实）→ Rivanta/Fluvanta/Cineonda/Rivoda/Volanta（熟度递减）；Talweg/Rillow 记录在案但分别有发音门槛/GitHub 占用问题 | 若 CineHarbor 清权受阻则依序启用 |
 | 路线 B（品牌与组织名解耦） | 未采纳 | 用户未选择；惯例先例 `warpdotdev` / `obsidianmd` 记录在案 | 若未来 handle 纠纷再议 |
-| 旧 MoonTV 品牌资产替换范围 | 推断 | `public/` 资产 + `luna-*` 类名 + `package.json` name | 待 logo 冻结后统一替换 |
+| 旧 MoonTV 品牌资产替换范围 | 推断 | `public/` 资产 + `luna-*` 类名 + `package.json` name | 已完成（2026-08-28：favicon/PWA/logo/backdrops + `ch-*` 类名 + `x-cineharbor-download-intent` + DB 全局符号 `__CINEHARBOR_*` + sync 默认域名） |
 
 ## 开放问题
 
