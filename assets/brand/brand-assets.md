@@ -15,14 +15,17 @@
 | --- | --- |
 | `cineharbor-icon.svg` | 1024 方底堆叠 lockup，app 图标 / favicon 的栅格源 |
 | `cineharbor-wordmark.svg` | 水平字标（透明底，深底反白），Web 头部 / 文档 |
+| `cineharbor-wordmark-dark.svg` | 1200×300 深底字标，logo.png 源 |
 | `cineharbor-og.svg` | 1200×630 深底字标，Open Graph 分享图源 |
+| `fonts/Inter.ttf` | 官方 Inter 可变字库（OFL-1.1），栅格管线自包含所需的字库 |
 
 ## 栅格派生
 
-由母版经 QuickLook（WebKit）光栅化 → `sips` 缩放 → `iconutil`/`sips` 出 `.icns`/`.ico`，
+`scripts/generate-brand-assets.sh` 把 Inter 以 `@font-face` 内嵌进每个渲染副本（不依赖系统字体），
+经 QuickLook（WebKit）光栅化 → `sips` 缩放 → `iconutil`/stdlib 出 `.icns`/`.ico`，
 下发到 `cineharbor-web/public`（favicon/PWA 图标）与 `cineharbor-desktop/src-tauri/icons`。
+任何机器克隆后即可确定性复现同一字形。
 
 ## 已知限制
 
-- 本机无 Inter 二进制字体，栅格产物使用 Helvetica 回退；批准字型（Inter）已写入母版与
-  Web `next/font`，需要字形精确一致时在装有 Inter 的环境重导出栅格。
+- Inter 可变字库 `fonts/Inter.ttf`（OFL-1.1）随仓分发，栅格已用真实 Inter 字形（经 `@font-face` 内嵌）。

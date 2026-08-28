@@ -9,9 +9,26 @@ DESK="/Users/jay/Code/cineharbor-desktop/src-tauri/icons"
 TMP="$(mktemp -d)"
 trap 'rm -rf "$TMP"' EXIT
 
+FONT="$BRAND/fonts/Inter.ttf"
+
 render () { # render <svg> <maxdim> <outbasename>
-  qlmanage -t -s "$2" -o "$TMP" "$1" >/dev/null 2>&1
-  mv "$TMP/$(basename "$1").png" "$TMP/$3.png"
+  # 生成内嵌 Inter 的自包含渲染副本（不依赖系统字体）
+  python3 - "$FONT" "$1" "$TMP/$3.svg" <<'PY'
+import sys, re, base64
+font, src, dst = sys.argv[1], sys.argv[2], sys.argv[3]
+b64 = base64.b64encode(open(font, 'rb').read()).decode()
+css = ("<defs><style>@font-face{font-family:'CHInter';"
+       f"src:url(data:font/ttf;base64,{b64}) format('truetype');"
+       "font-weight:100 900;}</style></defs>")
+s = open(src).read()
+s = s.replace(
+    "font-family=\"Inter, -apple-system, 'Helvetica Neue', Helvetica, Arial, sans-serif\"",
+    "font-family='CHInter'")
+s = re.sub(r'(<svg[^>]*>)', r'\1' + css, s, count=1)
+open(dst, 'w').write(s)
+PY
+  qlmanage -t -s "$2" -o "$TMP" "$TMP/$3.svg" >/dev/null 2>&1
+  mv "$TMP/$3.svg.png" "$TMP/$3.png"
 }
 resize () { # resize <src> <w> <h> <dst>
   sips -z "$3" "$2" "$1" --out "$4" >/dev/null 2>&1

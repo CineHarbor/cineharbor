@@ -21,7 +21,8 @@
 - 白 `#FFFFFF`（字标次段）
 
 ### 字体与许可
-Inter（Web 应用 `next/font` 一致；本机光栅化回退 Helvetica Neue/Helvetica）。CamelCase `CineHarbor`。
+Inter（Web 应用 `next/font` 一致；栅格管线内嵌 `assets/brand/fonts/Inter.ttf`（OFL-1.1）出真实字形）。
+CamelCase `CineHarbor`。
 
 ### 负空间与背景
 图标/头像用不透明 `#0B1220` 底（maskable 满幅安全区）；字标用透明底。
@@ -63,8 +64,7 @@ Inter（Web 应用 `next/font` 一致；本机光栅化回退 Helvetica Neue/Hel
 
 ## 已知限制
 
-- 本机无 Inter 二进制字体，栅格产物含 Helvetica 回退字形；批准字型（Inter）已写入母版与 Web `next/font`，
-  需字形完全一致时在装有 Inter 的环境重新执行 `scripts/generate-brand-assets.sh`。
+- 栅格已用真实 Inter 字形（`assets/brand/fonts/Inter.ttf`，OFL-1.1，随仓分发，栅格管线经 `@font-face` 内嵌）。
 - og:image 为相对 URL，正式域名确定后需改为绝对 URL（社媒抓取要求）。
 - 商标/域名正式清权检索仍未完成（见 process log 开放问题）。
 
@@ -72,4 +72,3 @@ Inter（Web 应用 `next/font` 一致；本机光栅化回退 Helvetica Neue/Hel
 
 1. 商标/域名正式清权（联网检索恢复后）。
 2. 正式部署域名确定后改 og:image 为绝对 URL。
-3. 在带 Inter 的环境重导出栅格以消除 Helvetica 回退差异。
