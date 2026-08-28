@@ -31,7 +31,7 @@
 | **P3 local-service 重构** | 变 addon host + 统一数据出口；桌面端不再 Tauri command 直连 | 本地 daemon 可托管 addon | ✅ host 引擎 + local-service 挂载 + 内置 live addon 注册 |
 | **P4 Web 客户端** | 旧 Next.js 应用迁入 cineharbor-web，清旧品牌；数据访问切 core 的 /addons 聚合 | cineharbor-web 起服务 | ✅ 迁入+build✅ + addon 传输层✅ + live/douban/vod 内置 addon✅；前端逐页切 /addons 列长尾（ADR-0004） |
 | **P5 桌面客户端** | Tauri 壳迁入改名 cineharbor-desktop，productName/identifier/updater 换新 | 打包成功 | ✅ 壳迁入+改名+25 单测✅ + tauri build 打包✅；updater 签名公钥轮换列发布待办 |
-| **P6 周边** | worker、proxy、下载站迁入改名；logo 冻结后换 favicon/icons | 品牌一致 | 🚧 worker+下载站迁入✅；品牌资产待 logo/配色审批 |
+| **P6 周边** | worker、proxy、下载站迁入改名；logo 冻结后换 favicon/icons | 品牌一致 | ✅ worker+下载站迁入 + 品牌资产（字标/favicon/PWA/桌面图标）全部完成 |
 
 ## 旧名对照
 

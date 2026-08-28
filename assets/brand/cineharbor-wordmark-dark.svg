@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="300" viewBox="0 0 1200 300">
+  <rect width="1200" height="300" fill="#0B1220"/>
+  <text x="600" y="200" text-anchor="middle" font-family="Inter, -apple-system, 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="150" letter-spacing="0">
+    <tspan fill="#34C7D1" font-weight="500">Cine</tspan><tspan fill="#FFFFFF" font-weight="700">Harbor</tspan>
+  </text>
+</svg>

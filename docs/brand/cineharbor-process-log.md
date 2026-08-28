@@ -7,7 +7,7 @@
 | 品牌/产品 | CineHarbor（原 MoonTV / LunaTV / moontv；曾选 Fluma、Rillow，均因注册占用弃用） |
 | 记录负责人 | Matt |
 | 开始 | 2026-08-27 |
-| 最后更新 | 2026-08-27 |
+| 最后更新 | 2026-08-28 |
 | 审批权 | 会话用户（直接决策人，Matt） |
 
 ## 简报
@@ -53,6 +53,8 @@
 | 2026-08-27 | GitHub 组织名囤积现实：talweg/eyot/sluice/freshet/swale/rivulet 等冷僻真词与 ryvo/onda/kino/reelo 等响亮短词全部被既有账号占用（多批探测） | GitHub API 探测 | 可用名只能来自独特造词或熟词新组 | 已确认 |
 | 2026-08-27 | 终选注册表初检：CineHarbor 在 GitHub 组织、npm、crates.io 三处均未注册；备选池 Rivanta/Fluvanta/Cineonda/Rivoda/Volanta/CinePlay 同样三处空闲 | GitHub API + npm registry + crates.io API | 注册表层面可用 | 已确认 |
 | 2026-08-27 | 网页级撞名检索不可用：web_search 连续返回非实时内容、DuckDuckGo 人机验证拦截、DNS 探测被沙箱通配劫持返回假数据 | 会话工具记录 | 本轮未能联网核实品牌撞名 | 阻塞（转待办） |
+| 2026-08-28 | 用户选定 logo 方向「纯字标 double-morpheme」与配色「深海军蓝底 #0B1220 + 青蓝 #34C7D1」 | 会话问答（ask_user_question） | 图形/配色/字体冻结 | 已批准 |
+| 2026-08-28 | 生成 SVG 母版 + favicon/PWA/桌面图标 + logo/og，BMP 像素抽样 navy/cyan/white 齐备，ICO/ICNS 头合法 | `assets/brand/` + `cineharbor-web/public` + `cineharbor-desktop/src-tauri/icons` | 资产包已产出并集成 | 已验收 |
 
 ## 探索与决策
 
@@ -84,23 +86,28 @@
 
 ### 图形与比例
 
-待定（logo 概念方向探索中；词标两段式 CamelCase 提供「Cine + Harbor」双词素构图切入点）。
+已冻结：**纯字标 double-morpheme**（无独立图形 mark）。水平锁定为 `Cine`（青蓝、中重）＋ `Harbor`
+（白、粗重）双词素字标；app 图标采用同字标的两行堆叠 lockup（`Cine` 上 / `Harbor` 下）置于
+深海军蓝方底。比例：图标 1:1 方底；两行基线间距 ≈ 0.16H；水平两词素无空格。
 
 ### 配色
 
-待定（方向见开放问题；候选为深色底 + 青蓝「水光」主色，脱离旧 #000000 纯黑）。
+已冻结：基底 **深海军蓝 `#0B1220`**（脱离旧纯黑），主色 **青蓝水光 `#34C7D1`**，字标次段
+**白 `#FFFFFF`**。深底用青蓝+白；浅底反白为深蓝+青蓝。
 
 ### 字体与大小写
 
-待定。
+已冻结：**Inter**（与 Web 应用 `next/font` 一致；本机光栅化回退 Helvetica Neue/Helvetica）。
+大小写 **CamelCase `CineHarbor`**；字标内两词素无空格。
 
 ### 负空间与背景
 
-待定。
+已冻结：图标/头像类用**不透明**深海军蓝底（#0B1220），把 mark 置于满幅安全区；字标类用透明底。
 
 ### 锁定关系与间距
 
-待定。
+已冻结：水平锁定 `Cine`+`Harbor` 之间无额外间隙（CamelCase 自然衔接）；两行堆叠 lockup 行距
+≈ 0.16H，上下居中对齐。
 
 ## 审批检查点
 
@@ -109,6 +116,9 @@
 | 2026-08-27 | 品牌名选定（第一次） | 采纳 Fluma | 用户回复「就 Fluma」 | Matt |
 | 2026-08-27 | 品牌名选定（第二次，替代 Fluma） | 采纳 Rillow；Talweg 为记录在案的备选 | 清权初检 + 会话问答（ask_user_question） | Matt |
 | 2026-08-27 | 品牌名选定（第三次，替代 Rillow） | 采纳 CineHarbor；备选池与路线 B 记录在案 | 三表全绿 + 会话问答（ask_user_question） | Matt |
+| 2026-08-28 | logo 图形方向 | 采纳「纯字标 double-morpheme」 | ask_user_question（三选一） | Matt |
+| 2026-08-28 | 配色基调 | 采纳「深海军蓝底 + 青蓝水光」（#0B1220 + #34C7D1） | ask_user_question（三选一） | Matt |
+| 2026-08-28 | 生产主母版冻结 | 图形/配色/字体/负空间/锁定均已冻结（见「已批准的不变量」） | `assets/brand/*.svg` + 本记录 | Matt |
 
 ## 推断与未知
 
@@ -122,7 +132,7 @@
 
 ## 开放问题
 
-1. logo 图形概念方向（探索中，待用户选择；词标双词素为现成切入点）。
-2. 配色基调确认（深色底 + 青蓝主色，还是其他）。
+1. ~~logo 图形概念方向~~ → 已冻结「纯字标 double-morpheme」（2026-08-28）。
+2. ~~配色基调确认~~ → 已冻结「深海军蓝底 #0B1220 + 青蓝水光 #34C7D1」（2026-08-28）。
 3. 商标/域名正式清权检索（联网检索恢复后执行；GitHub handle `CineHarbor`、npm `cineharbor`、crates.io `cineharbor` 当前均空闲，宜尽快占位）。
 4. 三层架构仓库拆分的命名落地（`cineharbor-core` 等）与现有 `moontv` 包名迁移顺序。
