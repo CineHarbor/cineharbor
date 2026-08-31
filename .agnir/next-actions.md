@@ -6,3 +6,4 @@
 3. ~~跟进 `docs/PLAN.md` 开放问题 #1（许可证）~~ ✅ 已解决（2026-08-28）。
 4. 各子仓后续动作由其各自 Agnir `.agnir/next-actions.md` 维护。
 5. douban-imdb-rt：P0 统一评分聚合层已在 `cineharbor-web` 落地；剩余 P1（IMDb 真实数据源）、P2（RT 真实数据源 + 播放详情页展示）由 `cineharbor-web/.agnir/next-actions.md` 跟踪。
+6. **待推送**：本仓 `main` 领先 `origin/main` 1 个提交（`64b0b85` docs: douban-imdb-rt P0 落地…）；`cineharbor-web` 领先 3 个提交（`aaea96c` ratings P0 / `490fa33` gen:manifest 修复 / `6bd7e99` 主题色单一来源）。推送走 `github.com-matt`。
