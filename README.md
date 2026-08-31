@@ -37,7 +37,7 @@ cineharbor-worker、cineharbor-download-site：独立
 - `docs/PLAN.md` —— 已批准决策与分阶段计划（P0–P6）
 - `docs/adr/` —— 架构决策记录
 - `docs/brand/cineharbor-process-log.md` —— 品牌过程记录（仅此处保留旧名历史）
-- `docs/plans/` —— 从旧项目迁入的开发计划，随工作落地归属到对应仓库
+- `docs/plans/README.md` —— 开发计划归属与状态索引（每条计划的归属仓 + 实现状态）
 
 ## 协议
 
@@ -45,4 +45,4 @@ cineharbor-worker、cineharbor-download-site：独立
 
 ## 许可证
 
-CC BY-NC-SA 4.0（继承自上游公开授权；许可元数据问题见 `docs/PLAN.md` 开放问题）。
+CC BY-NC-SA 4.0（继承自上游公开授权；全仓许可元数据已统一，见 `docs/PLAN.md` 开放问题 #1）。
