@@ -8,7 +8,7 @@
 | --- | --- | --- |
 | `player-enhancements-audio-visual.md` | cineharbor-core + cineharbor-web | ✅ 已实现（core `local-service` 提供 `player_enhancements` 级别化配置；web `app/layout.tsx` / `app/live` 已消费） |
 | `music-player-rustified-plan.md` | cineharbor-web + cineharbor-core | 🟡 部分落地：web 已有 music 导航/播放器安全区雏形（`PageLayout` / `globals.css`）；正文文件引用仍是旧机器路径，续作前需先修链接 |
-| `douban-imdb-rt-integration-plan.md` | cineharbor-web | 🟡 P0 落地：统一评分聚合层 + `POST /api/ratings/batch` + 豆瓣真实接入 + IMDb/RT 配置门控优雅降级；搜索页已切统一接口、VideoCard 已加评分行；IMDb/RT 真实数据源与播放详情页待接入 |
+| `douban-imdb-rt-integration-plan.md` | cineharbor-web | 🟡 P0+P1 落地：统一评分聚合层 + `POST /api/ratings/batch` + 豆瓣真实接入 + IMDb 官方 datasets 零 key（`pnpm sync:imdb` 建索引，按标题+年份反查，播放详情页已展示 IMDb）；剩 P2（RT 真实数据源 + 播放详情页三源评分区）与 P3 |
 | `desktop-follow-updates-plan.md` | cineharbor-desktop（Web 后续复用） | 📋 方案就绪，未实现 |
 | `cache-and-download/`（5 篇） | cineharbor-worker + cineharbor-web | 📋 方案库（SW 缓存 / IndexedDB / Background Fetch 选型） |
 
