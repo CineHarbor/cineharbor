@@ -11,6 +11,7 @@
 | `douban-imdb-rt-integration-plan.md` | cineharbor-web | 🟡 P0+P1 落地：统一评分聚合层 + `POST /api/ratings/batch` + 豆瓣真实接入 + IMDb 官方 datasets 零 key（`pnpm sync:imdb` 建索引，按标题+年份反查，播放详情页已展示 IMDb）；剩 P2（RT 真实数据源 + 播放详情页三源评分区）与 P3 |
 | `desktop-follow-updates-plan.md` | cineharbor-desktop（Web 后续复用） | 📋 方案就绪，未实现 |
 | `cache-and-download/`（5 篇） | cineharbor-worker + cineharbor-web | 📋 方案库（SW 缓存 / IndexedDB / Background Fetch 选型） |
+| `stremio-faithful-cutover-plan.md` | 全仓（core 优先，web/desktop/addon-sdk 随动） | 🔨 P0–P3 全落地+实测（core 双编译 / douban+live(多源)+vod addon / 媒体代理 / worker 四桥+存储+CORS+跨源浏览器端到端+SW / shape-bridge）；P4 退役执行中：`USE_ADDON_LIVE`/`USE_ADDON_VOD` 默认转正 + 删 `/api/detail`/`/api/live/*` + 豆瓣 rating 槽位（协议 `MetaPreview.rating`）。剩 `/api/search*`(非 ws)/`/api/proxy/*`（富消费方）待 Matt 定 + live 页死分支清理 |
 
 ## 备注
 

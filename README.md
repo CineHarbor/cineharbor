@@ -8,7 +8,7 @@
 
 | 仓库 | 职责 | 对应 Stremio |
 | --- | --- | --- |
-| [cineharbor-core](https://github.com/CineHarbor/cineharbor-core) | Rust 核心：storage/sync/profile/download + local-service + addon host + core 门面 | `stremio-core` |
+| [cineharbor-core](https://github.com/CineHarbor/cineharbor-core) | Rust 核心（终态：纯状态机，native + WASM）；storage/sync/profile/download + addon host + core 门面 | `stremio-core` |
 | [cineharbor-addon-sdk](https://github.com/CineHarbor/cineharbor-addon-sdk) | addon 协议 + SDK + 参考 addon（bangumi/live），+ 协议契约 protocol.md | `stremio-addon-sdk` |
 | [cineharbor-web](https://github.com/CineHarbor/cineharbor-web) | Web 客户端（Next.js + PWA） | `stremio-web` |
 | [cineharbor-desktop](https://github.com/CineHarbor/cineharbor-desktop) | 桌面客户端（Tauri） | `stremio-shell` |
@@ -17,15 +17,26 @@
 
 > GitHub 链接在 push 后生效，在此之前以本地目录 `/Users/jay/Code/cineharbor-*` 为准。
 
-## 依赖图
+## 依赖图（终态，ADR-0006）
 
 ```
-cineharbor-addon-sdk ──▶ cineharbor-core（local-service 作 addon host）
-                              ▲
-                              └── cineharbor-desktop（嵌入 local-service、链 core 库）
-cineharbor-web ──HTTP/RPC──▶ cineharbor-core/local-service
+cineharbor-core（纯状态机，native + WASM）◀── 链接/嵌入：desktop、web(WASM)
+        └── 经 addon 协议(HTTP) 消费 ──▶ remote addons（抓取/代理，独立部署）
+
+cineharbor-addon-sdk：协议契约 + SDK（client 侧 wasm 友好 / router 服务端）
+cineharbor-local-service：过渡期 addon 承载进程（随阶段 2 外置后退化）
 cineharbor-worker、cineharbor-download-site：独立
 ```
+
+> 历史（ADR-0003/0005）：web 曾经 local-service 的 native RPC / `/addons`；ADR-0006 起统一为「core 进程内（native/WASM）+ addon HTTP」，取消跨进程 native RPC。
+
+## 实现进度（ADR-0006，2026-08-31）
+
+- ✅ **core 纯状态机双编译**：`cineharbor-core`（native）+ `cineharbor-core-web`（wasm-bindgen 粘合，浏览器 worker 内运行）。
+- ✅ **抓取/媒体代理外置 remote addon**：`douban` / `live`（多源 M3U8）/ `vod`（多源）+ `cineharbor-media` 转链（HLS 重写），CORS 跨源直连。
+- ✅ **web 薄客户端底座**：core-worker RPC（四桥 + IndexedDB 存储）+ `CoreAddonClient` + 跨源浏览器端到端 + Service Worker（wasm 固化 + addon 元数据缓存）。
+- 🔨 **P4 切面（退役执行中）**：`USE_ADDON_LIVE`/`USE_ADDON_VOD` 已默认转正；`/api/detail` + `/api/live/*` 原生路由**已删**；豆瓣 rating 槽位已加（协议 `MetaPreview.rating` + douban addon 透出）。剩余：`/api/search*`（非 ws）/`/api/proxy/*` 因富消费方（点播源预取排序/下载搜索/转流+logo）待定 + live 页死分支清理 + wasm 重建。
+- 进度与退役清单 / 执行手册见 `docs/plans/stremio-faithful-cutover-plan.md`、`docs/plans/web-api-retirement-plan.md`。
 
 ## 开发约定
 
@@ -56,3 +67,4 @@ CC BY-NC-SA 4.0（继承自上游公开授权；全仓许可元数据已统一�
 3. 需要时再加载 Decisions（`.agnir/decisions.md`）与 Evidence（`.agnir/evidence/`）；
 4. durable Agnir Project truth 优先于聊天记录与 Agent 私有记忆，除非被更新的 Principal 指令或直接观测到的当前 Project 事实覆盖；
 5. 在保存进度、checkpoint 或结束工作时，把重要的 state / next-action / decision / evidence 变更写回 `AGNIR.yaml` 声明的 durable memory 位置。
+6. 在 repository / VCS 上下文中，把已授权的 `commit`、`提交`、`提交代码` 或同义请求视为 checkpoint boundary：先 reconcile Agnir 再 commit，优先把 Project 改动与 Agnir 改动放进同一 revision；`commit and push`、`提交推送` 或同义请求表示 checkpoint + commit + push，并在声明了 authoritative ref 时验证推送结果。

@@ -10,3 +10,5 @@
 - 协议：内容源 addon 跟随 Stremio addon 协议，契约在 `cineharbor-addon-sdk` 仓 `protocol.md`。
 - 许可证：CC BY-NC-SA 4.0（继承上游公开授权）。
 - Agnir：7 仓已各自初始化 `repository-filesystem/0.1` durable continuity（identity `urn:cineharbor:project:*`）；改动尚未 commit，见各自 `.agnir/` 与 next-actions。
+- Agnir 操作基线：`iorLab/agnir` 稳定发布 `v0.1.0`（revision `2a0cb7bf2068b11f361e315670b2f2dc497b2588`，distribution `agnir-agent-skill`），2026-09-01 兼容操作升级。
+- 数据面终态（ADR-0006，2026-08-31，取代 ADR-0005 数据面机制）：core = 纯状态机，native + WASM 双编译（web 跑 Web Worker）；抓取/媒体代理外置为 remote addon（Stremio 协议）；web 薄客户端 = WASM core + Service Worker + addon HTTP。分阶段方案见 `docs/plans/stremio-faithful-cutover-plan.md`。

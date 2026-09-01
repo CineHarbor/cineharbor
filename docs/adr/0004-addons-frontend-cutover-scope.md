@@ -1,6 +1,6 @@
 # ADR-0004 addon 前端切换边界：/addons 先服务互操作，不强行改写既有 UI
 
-- 状态：已采纳
+- 状态：已采纳（第 2、3 条被 [ADR-0005](./0005-web-data-plane-convergence.md) 取代）
 - 日期：2025-08-28（项目内相对）
 - 决策者：CineHarbor（单维护者）
 
