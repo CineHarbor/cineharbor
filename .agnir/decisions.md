@@ -35,3 +35,13 @@
 - 授权与目标：Principal 明确选择迁移到最新稳定版 `v1.0.0`（iorLab/agnir tag `v1.0.0`，revision `6d16dcfd17b8e9f22fd25804e22b9f8a516d06c3`）。
 - 兼容线声明改为 Core `1.0` / `repository-filesystem/1.0`；新增 `continuity.lineage: "urn:cineharbor:lineage:cineharbor"`（0.1 唯一隐式连续线的显式初始 lineage）。
 - 保留：`project.identity`、memory locators 与 durable memory 内容、policy、`agnir/repository` 扩展、README/`AGENTS.md` 无关内容。
+
+## 2026-09-12 — P4 退役剩余切面拍板（Principal）
+
+收口 `docs/plans/web-api-retirement-plan.md` 决策点 2/3/5 与 bangumi/updater 待定。不接受能力降级；能补进 addon 的先补再删原生面。
+
+1. **点播搜索富消费方**（web `/api/search*`；桌面共用同一 UI）：先把播放选源预取排序、成人过滤、下载页搜索、输入联想迁进 `cineharbor-addon-vod`，parity 齐再删 `/api/search*`。主搜索页已走 addon，保持。不现在删、不接受选源/过滤/下载搜索降级。
+2. **下载媒体代理**：`cineharbor-media` / vod addon `/media/vod/*` 先补广告过滤（`filterM3U8` 对等）+ 鉴权，再转正 `USE_ADDON_MEDIA_PROXY` 并删 `/api/proxy/vod/*`。不接受无鉴权开放代理。`logo` / `image-proxy` / `m3u8-filter` / `m3u8-asset` 暂留 web 原生。
+3. **豆瓣页**：搜索现在 cutover 到 `cineharbor-addon-douban`（catalog + `MetaPreview.rating` 已有跨源 E2E）。`recommends` / `categories` 暂留 `/api/douban/*`。
+4. **首页番剧日历**：接到已有 `cineharbor-addon-bangumi`（catalog 或小扩展），保留首页日历。不删 `/api/bangumi/calendar` 直到 addon 接线完成。
+5. **桌面 updater**：主线继续阶段 4。首次在线升级闭环后置，等要发桌面版时再验。不挡 web 退役。

@@ -43,20 +43,16 @@
 - `src/lib/core/content/streams-bridge.ts`：`Stream[]` → `episodes/episodes_titles` + `buildDetail`（合成
   完整 `SearchResult`）——Stremio 分离 meta/streams 的两步映射已完整（jest 3 绿）。
 
-## 决策点（截至 2026-08-31 收敛）
+## 决策点（截至 2026-09-12 收口）
 
 1. **live 交互验证**：✅ 已执行（Matt「直接删」授权）——`USE_ADDON_LIVE` 默认转正 + `/api/live/*` 已删。
-2. **点播富模型映射**：◐ 详情已退役（`/api/detail` 删）；**搜索留待 Matt 定富消费方取舍**（`playback-source-prefetch`
-   多源选源排序 + 成人过滤、`DownloadsClient` 下载搜索、`fetchContentSuggestions` 建议均无 addon 对等）。
-3. **豆瓣 ratings**：✅ 已定 A——协议加 `MetaPreview.rating` 通用评分槽（与 `imdb_rating` 并列），douban addon 已透出
-   （`9.4`）。剩搜索页 cutover + recommends/categories 外沿。
+2. **点播富模型映射**：◐ 详情已退役（`/api/detail` 删）。**2026-09-12 定**：播放选源预取排序、成人过滤、下载页搜索、输入联想先迁进 `cineharbor-addon-vod`，parity 齐再删 `/api/search*`。不现在删、不接受这四条降级。
+3. **豆瓣**：✅ ratings 已定 A（协议 `MetaPreview.rating`）。**2026-09-12 定**：搜索页现在 cutover 到 douban addon；`recommends` / `categories` 暂留 `/api/douban/*`。
 4. **账户/收藏/历史 + 鉴权/admin/cron**：属「非抓取/媒体代理」范围，不在本目标退役（账户持久化已
    worker IndexedDB 直存对齐，鉴权/admin/cron/desktop 留 desktop 对齐）。
-5. **下载媒体代理**（进度 49 核实）：`/api/proxy/vod/{m3u8,segment,key}` 三路由除转链外还带原生专属
-   `filterM3U8`（广告过滤）、`requireAuthContextFromRequest`（会话鉴权）、`proxyDesktopDevVodRequest`
-   （desktop dev）。addon `/media/vod/*` 是裸代理（无 ad-filter/auth，CORS 开放）。切换 = 下载侧丢广告过滤 +
-   鉴权；需 Matt 定：addon `/media/vod/*` 补 ad-filter+auth，还是接受下载侧降级。`logo`/`image-proxy`/
-   `m3u8-filter`/`m3u8-asset` 同理无 addon 对等，需「新端点 vs 接受损失」定夺。
+5. **下载媒体代理**：**2026-09-12 定**：vod addon `/media/vod/*` 先补广告过滤 + 鉴权，再转正 `USE_ADDON_MEDIA_PROXY` 并删 `/api/proxy/vod/*`。不接受无鉴权开放代理。`logo` / `image-proxy` / `m3u8-filter` / `m3u8-asset` 暂留 web 原生。
+6. **首页番剧日历**：**2026-09-12 定**：接到已有 `cineharbor-addon-bangumi`，保留首页日历；addon 接线完成前不删 `/api/bangumi/calendar`。
+7. **桌面 updater**：**2026-09-12 定**：首次在线升级闭环后置，不挡阶段 4。
 
 ## 切换/退役执行手册（可逆，Matt 确认后逐条执行）
 

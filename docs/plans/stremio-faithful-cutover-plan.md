@@ -100,7 +100,9 @@ cineharbor-addon-sdk workspace：
 
 进度 31：vod 媒体代理 E2E ✅——`vod-media-proxy-smoke.mjs`（node 直连真实 vod addon `/media/vod/*`）：mock 上游 m3u8→addon 重写（分片/密钥转链 + `source` 透传 + CORS `*`），重写后的分片/密钥 URL 真实转发字节（`segmentMatches`/`keyMatches` true）。补全「媒体代理外置」缺证：addon `/media/vod/*` 是原生 `/api/proxy/vod/*` 的 drop-in（退役前置证据齐，待 flip `USE_ADDON_MEDIA_PROXY` + 删）。
 
-进度 32：剩余退役面精确核算 —— 枚举 web 原生 `/api` 全量，抓取/媒体代理外置仅剩 4 组（共 17 路由）：① `search/{route,one,resources,suggestions,ws}`+`searchhistory`（富消费方 prefetch/DownloadsClient/建议无 addon 对等）；② `douban/{route,search,categories,ratings,recommends}`（搜索页 cutover + 外沿无对等）；③ `proxy/vod/{m3u8,segment,key}`+`m3u8-filter`+`m3u8-asset`+`logo`+`image-proxy`（**核实三路由带原生专属 ad-filter+auth+desktop-dev-proxy，addon `/media/vod/*` 无**）；④ `bangumi/calendar`（无 Stremio 对等）。账户/admin/desktop/鉴权属非抓取面（决策点 4，不在本目标）。→ 全部 4 组均待 Matt 定取舍，无决策可再推进。
+进度 32：剩余退役面精确核算 —— 枚举 web 原生 `/api` 全量，抓取/媒体代理外置仅剩 4 组（共 17 路由）：① `search/{route,one,resources,suggestions,ws}`+`searchhistory`（富消费方 prefetch/DownloadsClient/建议无 addon 对等）；② `douban/{route,search,categories,ratings,recommends}`（搜索页 cutover + 外沿无对等）；③ `proxy/vod/{m3u8,segment,key}`+`m3u8-filter`+`m3u8-asset`+`logo`+`image-proxy`（**核实三路由带原生专属 ad-filter+auth+desktop-dev-proxy，addon `/media/vod/*` 无**）；④ `bangumi/calendar`（无 Stremio 对等）。账户/admin/desktop/鉴权属非抓取面（决策点 4，不在本目标）。
+
+进度 33：P4 剩余切面拍板（2026-09-12，Principal）✅ —— 不接受能力降级。① 搜索富消费方先迁 vod addon，齐再删 `/api/search*`；② 豆瓣搜索现在 cutover，recommends/categories 留原生；③ vod `/media/vod/*` 补广告过滤+鉴权再切，logo/image-proxy 留原生；④ bangumi 日历接已有 addon。桌面 updater 首次验证后置。执行序见门面 `.agnir/next-actions.md` §9。
 
 ### 阶段 4 —— 退役原生面
 - 内容：删 web 原生 `/api` 与 TS 后端（`server`/`download`/`profile-sync`/`live`/`douban`/`proxy`）；desktop/worker 对齐 addon 端点；core 门面长成 stremio-core 等价物。

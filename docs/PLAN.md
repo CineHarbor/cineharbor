@@ -42,4 +42,4 @@
 1. ~~**许可证**~~ → **已解决（2026-08-28）**：全仓统一为 CC BY-NC-SA 4.0 —— `LICENSE`、所有 `Cargo.toml`（`license = "CC-BY-NC-SA-4.0"`）与全部 README 已一致；Node 仓 `package.json` 亦补 `license` 字段。此前「Cargo 误标 GPL、徽章误标 MIT」的残留已清零。
 2. ~~**Stremio 兼容范围**~~ → **已解决（2026-08-27）**：完全跟随 Stremio 协议，双向互操（本地 host 可加载 Stremio addon；我们的参考 addon 可被 Stremio 官方客户端加载）。契约冻结于 `cineharbor-addon-sdk` 仓的 `protocol.md`（ADR-0002）。
 3. ~~**sqlite schema 版本**~~ → **已解决（2026-08-27）**：全新从 `1` 起步（老数据不迁移，无兼容包袱）。
-4. **桌面 updater 渠道** → **基建已就绪（2026-08-28）**：旧客户端不平滑过渡（决策 4 已定），新渠道直接发布 cineharbor-desktop。updater 端点、签名公钥已轮换、多仓发布流水线均已落地；剩余仅首次发布时验证在线升级闭环。
+4. **桌面 updater 渠道** → **基建已就绪（2026-08-28）；首次验证后置（2026-09-12）**：旧客户端不平滑过渡（决策 4 已定），新渠道直接发布 cineharbor-desktop。updater 端点、签名公钥已轮换、多仓发布流水线均已落地。Principal 定：首次在线升级闭环不挡阶段 4，等要发桌面版时再验。
