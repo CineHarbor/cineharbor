@@ -45,3 +45,10 @@
 3. **豆瓣页**：搜索现在 cutover 到 `cineharbor-addon-douban`（catalog + `MetaPreview.rating` 已有跨源 E2E）。`recommends` / `categories` 暂留 `/api/douban/*`。
 4. **首页番剧日历**：接到已有 `cineharbor-addon-bangumi`（catalog 或小扩展），保留首页日历。不删 `/api/bangumi/calendar` 直到 addon 接线完成。
 5. **桌面 updater**：主线继续阶段 4。首次在线升级闭环后置，等要发桌面版时再验。不挡 web 退役。
+
+## 2026-09-19 — Agnir 兼容操作升级到 v1.0.2
+
+- 目标：已发布稳定版 `v1.0.2`（source `iorLab/agnir`，immutable revision `b5626394ec40a5cb7a28c01892acde07cc0adc8e`）。
+- 分类：compatible operational upgrade；Core/Profile 仍为 `1.0` / `repository-filesystem/1.0`，保留 `project.identity`、`continuity.lineage`、memory locators/content、policy 与无关 Project 内容。
+- 激活 packaging：新增 canonical 根 `AGNIR.md`；`AGENTS.md` 改为直达 `AGNIR.md` 的 locator；README `## Agnir Project Instructions` 收敛为兼容 locator。
+- provenance：`AGNIR.yaml > extensions > agnir/operations` 更新为 release `1.0.2` / applied revision `b5626394ec40a5cb7a28c01892acde07cc0adc8e`。
