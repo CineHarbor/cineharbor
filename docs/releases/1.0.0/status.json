@@ -7,17 +7,51 @@
   "evidence_policy": "Required gates need observed results tied to immutable source revisions; unknown and skipped are not passes.",
   "observed_blockers": [
     {
-      "id": "CORE-CI-BASELINE",
-      "kind": "RELEASE_BLOCKER",
-      "repository": "CineHarbor/cineharbor-core",
-      "revision": "05989fb6f2fe388d8eaeb4128445ac4c61662f5a",
-      "run_id": 35382333866,
-      "detail": "Rust fmt failed; check, test and clippy were skipped. Requires repair and fresh successful executions."
+      "id": "DESKTOP-NATIVE-CI",
+      "kind": "UNVERIFIED",
+      "repository": "CineHarbor/cineharbor-desktop",
+      "revision": "8f5c74dc7c6cbf9e3f115c6c9bd09f315cf12f39",
+      "run_id": 35441377610,
+      "detail": "Repair pushed and portable checks passed. Final-source native CI dispatched; last observed pending. Baseline 35438175264 failed strict Clippy and Windows installer preparation."
     },
     {
       "id": "UPDATER-REAL-UPGRADE",
       "kind": "UNVERIFIED",
       "detail": "Real signed old-to-new upgrade with preserved user data is required before release-ready."
+    },
+    {
+      "id": "FINAL-RELEASE-MATRIX",
+      "kind": "UNVERIFIED",
+      "detail": "Final revisions, twice-executed mandatory CI steps, full product acceptance, production deployments, architecture retirement, signed assets, security/license review and version alignment are not yet certified."
     }
-  ]
+  ],
+  "historical_observations": [
+    {
+      "id": "CORE-CI-BASELINE",
+      "kind": "RELEASE_BLOCKER",
+      "repository": "CineHarbor/cineharbor-core",
+      "revision": "05989fb6f2fe388d8eaeb4128445ac4c61662f5a",
+      "run_id": 35382333866,
+      "detail": "Rust fmt failed; check, test and clippy were skipped. Requires repair and fresh successful executions.",
+      "disposition": "Historical starting failure, not the status of current main; later source is e2bb2c6cab5cf620ab4eef34e05b254b26dc3139."
+    }
+  ],
+  "observed_ci": [
+    {
+      "repository": "CineHarbor/cineharbor-web",
+      "revision": "9fd1fc0b94ca72578dec2f0afbf3cea97e70cccc",
+      "run_ids": [35438906907, 35439140734],
+      "workflow_conclusions": ["success", "success"],
+      "scope": "Observed workflow conclusions, not blanket certification of the full release acceptance matrix."
+    }
+  ],
+  "verified_publication": {
+    "repository": "CineHarbor/cineharbor-desktop",
+    "ref": "refs/heads/main",
+    "sha": "8f5c74dc7c6cbf9e3f115c6c9bd09f315cf12f39",
+    "preparation_sha": "aad5fce9f4b8b062d1af1c2bed31f63d6ee1ce82",
+    "repair_run_id": 35441354006,
+    "rust_blob_sha": "49c580ff82fb450c7af2d90498309e6368a1894a"
+  },
+  "recovery_evidence": ".agnir/evidence/2026-09-19-execution-recovery.md"
 }

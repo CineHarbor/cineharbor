@@ -2,8 +2,8 @@
 
 Target: **1.0.0 release-ready; do not publicly release**. See `docs/releases/1.0.0/scope.md`. Continue autonomously within the Principal's authorization; do not treat this checklist as completion evidence.
 
-1. Resolve and inventory all seven current main revisions; reconcile per-repository continuity and remaining API/content consumers.
-2. Repair and execute all actual CI/build/test gates from clean checkouts. Core baseline formatting fails before check/test/clippy. Confirm every mandatory step executed and obtain two successful main runs.
+1. Resume from the verified recovery checkpoint and re-resolve current refs. Never apply the old incomplete implementation ZIP over newer repository changes; reconcile the seven-repository source inventory and actual consumers.
+2. Inspect Desktop native CI 35441377610 for repaired source 8f5c74dc7c6cbf9e3f115c6c9bd09f315cf12f39, then repair any remaining failures without weakening gates. Reconcile actual current Core/SDK/Web/Worker/site CI; the original Core fmt failure is historical. Confirm every mandatory step executes twice successfully at final revisions.
 3. Finish ADR-0006 content-data-plane retirement without capability loss; classify retained control/release APIs and remove only confirmed unused legacy implementations.
 4. Execute Web browser acceptance, persistence, PWA/update/error cases, addon compatibility and media authentication tests.
 5. Finish Desktop multi-platform RC packaging and a real signed old-to-new upgrade preserving user data. This is a 1.0.0 blocker, not a deferred migration item.
