@@ -57,7 +57,7 @@ jobs:
           printf '%s\n' 'Source collection only. No build, runtime, security, deployment or release-readiness claim.' > evidence/README.txt
       - uses: actions/upload-artifact@v4
         with:
-          name: release-source-audit-${{ github.run_id }}
+          name: release-source-audit-${{ github.run_id }}-${{ github.run_attempt }}
           path: evidence/
           if-no-files-found: error
           retention-days: 7
