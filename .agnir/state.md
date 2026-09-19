@@ -1,15 +1,28 @@
 # CineHarbor Current State
 
-`CineHarbor/cineharbor` 是组织门面仓：存放整体计划、架构决策（ADR）、品牌史；代码分散在各专业化仓库。
+`CineHarbor/cineharbor` is the organization facade: release scope, project plans, architecture decisions and brand history. Product code lives in six specialized repositories; the release unit contains seven repositories including this one.
 
-- 架构：三层对标 Stremio —— Rust 核心 + 各端客户端 + Stremio 兼容 addon 协议。
-- 仓库拓扑：`cineharbor-core`、`cineharbor-addon-sdk`、`cineharbor-web`、`cineharbor-desktop`、`cineharbor-worker`、`cineharbor-download-site`（六仓，见 README 表格）。
-- 依赖图：`cineharbor-addon-sdk` → `cineharbor-core`（local-service 作 addon host）；`cineharbor-desktop` 嵌入 local-service 并链 core；`cineharbor-web` 经 local-service HTTP/RPC；worker、download-site 独立。
-- 开发约定：`cineharbor-core` 与 `cineharbor-addon-sdk` 推送走 `github.com-matt` SSH 别名；其余走 HTTPS + gh 凭据助手。
-- 文档：`docs/PLAN.md`（P0–P6 批准决策与分阶段计划）、`docs/adr/`、`docs/brand/`、`docs/plans/README.md`。
-- 协议：内容源 addon 跟随 Stremio addon 协议，契约在 `cineharbor-addon-sdk` 仓 `protocol.md`。
-- 许可证：CC BY-NC-SA 4.0（继承上游公开授权）。
-- Agnir：7 仓各自运行 `repository-filesystem/1.0` durable continuity（identity `urn:cineharbor:project:*`，lineage `urn:cineharbor:lineage:*`）。
-- Agnir 操作基线：`iorLab/agnir` 稳定发布 `v1.0.2`（revision `b5626394ec40a5cb7a28c01892acde07cc0adc8e`，distribution `agnir-agent-skill`）；Core/Profile 保持 `1.0` / `repository-filesystem/1.0`，2026-09-19 完成 compatible operational upgrade，canonical 激活路径为 `AGENTS.md → AGNIR.md → AGNIR.yaml`；既有 Project identity、lineage 与 durable memory 保持不变。
-- 数据面终态（ADR-0006，2026-08-31，取代 ADR-0005 数据面机制）：core = 纯状态机，native + WASM 双编译（web 跑 Web Worker）；抓取/媒体代理外置为 remote addon（Stremio 协议）；web 薄客户端 = WASM core + Service Worker + addon HTTP。分阶段方案见 `docs/plans/stremio-faithful-cutover-plan.md`。
-- P4 退役剩余切面已于 2026-09-12 拍板并落地：豆瓣搜索、bangumi 日历、点播搜索富消费方、vod 媒体代理（广告过滤+token 鉴权）均切 addon；对应原生 `/api/douban/search`、`/api/bangumi/calendar`、`/api/search*`、`/api/proxy/vod/*` 已删。logo/image-proxy 与 douban recommends/categories 仍留 web。桌面 updater 首次验证后置。详见 `.agnir/decisions.md`。
+## Current objective — 2026-09-19
+
+Autonomously execute the Principal's Release-Ready 100% plan for version **1.0.0**, without performing final public release. Canonical current scope and gate rules: `docs/releases/1.0.0/scope.md`; machine-readable observed status: `docs/releases/1.0.0/status.json`.
+
+**RELEASE_READY = false. PUBLIC_RELEASE_EXECUTED = false.** Historical P0–P6 migration milestones are not evidence of release acceptance.
+
+## Architecture
+
+ADR-0006 supersedes the ADR-0005 native-RPC/dual-surface content-data-plane target: pure core is compiled native/WASM and consumed in process; remote addons provide content discovery and media services over Stremio-compatible HTTP. Web must not require a native local-service daemon for its main content path. Control/application-plane and release-plane endpoints may remain with explicit ownership and authentication boundaries. Remaining duplicate content implementations require consumer audit before deletion; adoption of an ADR is not proof of its full implementation.
+
+Prior durable records report completed Web cutovers for Douban search, Bangumi calendar, rich VOD search consumers and VOD media proxy. Their current implementations and runtime acceptance are being verified, not recertified by this checkpoint. Douban recommends/categories and image/logo/media helper routes must be classified explicitly.
+
+## Observed baseline
+
+- Core main `05989fb6f2fe388d8eaeb4128445ac4c61662f5a`, Actions run `35382333866`: formatting failed, including sibling SDK sources; check/test/clippy did not execute.
+- Existing release documents contain stale native-RPC and developer-local-path descriptions; reconciliation is in progress.
+- Real Desktop updater acceptance is mandatory for 1.0.0; the historical deferral only applied to Web migration.
+- `Release source audit` collects tracked source snapshots and immutable revisions for diagnosis. Its success is not a release acceptance result.
+
+## Durable continuity
+
+Project identity `urn:cineharbor:project:cineharbor`; lineage `urn:cineharbor:lineage:cineharbor`. Core/Profile remain `1.0` / `repository-filesystem/1.0`. Agnir operations provenance remains `iorLab/agnir` v1.0.2, immutable revision `b5626394ec40a5cb7a28c01892acde07cc0adc8e`. Activation remains `AGENTS.md → AGNIR.md → AGNIR.yaml`. No Agnir migration or identity change is part of this release work.
+
+License baseline: CC BY-NC-SA 4.0; final release inventory still requires verification. Historical architectural and operational decisions remain in `.agnir/decisions.md`.

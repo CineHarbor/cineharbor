@@ -1,0 +1,63 @@
+name: Release source audit
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/source-audit.yml'
+      - 'docs/releases/**'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: source-audit-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  snapshot:
+    name: Source inventory (not a release acceptance gate)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: workspace/cineharbor
+          persist-credentials: false
+      - name: Resolve public repository heads and collect tracked sources
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p evidence
+          for repo in cineharbor-core cineharbor-addon-sdk cineharbor-web cineharbor-desktop cineharbor-worker cineharbor-download-site; do
+            git clone --depth 1 --branch main "https://github.com/CineHarbor/${repo}.git" "workspace/${repo}"
+          done
+          python3 - <<'PY'
+          import json, pathlib, subprocess, tarfile
+          root = pathlib.Path('workspace')
+          revisions = {}
+          excluded = {'.ttf', '.otf', '.woff', '.woff2', '.eot'}
+          with tarfile.open('evidence/sources.tar.gz', 'w:gz') as archive:
+              for repo in sorted(root.iterdir()):
+                  revisions[repo.name] = subprocess.check_output(['git', '-C', str(repo), 'rev-parse', 'HEAD'], text=True).strip()
+                  tracked = subprocess.check_output(['git', '-C', str(repo), 'ls-files', '-z']).split(b'\0')
+                  for raw in tracked:
+                      if not raw:
+                          continue
+                      relative = pathlib.Path(raw.decode('utf-8'))
+                      path = repo / relative
+                      if path.suffix.lower() in excluded or path.is_symlink() or not path.is_file():
+                          continue
+                      archive.add(path, arcname=str(path.relative_to(root)), recursive=False)
+          pathlib.Path('evidence/revisions.json').write_text(json.dumps(revisions, indent=2) + '\n')
+          print(json.dumps(revisions, indent=2))
+          PY
+          sha256sum evidence/sources.tar.gz > evidence/SHA256SUMS
+          printf '%s\n' 'Source collection only. No build, runtime, security, deployment or release-readiness claim.' > evidence/README.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: release-source-audit-${{ github.run_id }}
+          path: evidence/
+          if-no-files-found: error
+          retention-days: 7

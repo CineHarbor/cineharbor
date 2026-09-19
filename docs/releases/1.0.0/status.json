@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "target_version": "1.0.0",
+  "phase": "EXECUTING",
+  "release_ready": false,
+  "public_release_executed": false,
+  "evidence_policy": "Required gates need observed results tied to immutable source revisions; unknown and skipped are not passes.",
+  "observed_blockers": [
+    {
+      "id": "CORE-CI-BASELINE",
+      "kind": "RELEASE_BLOCKER",
+      "repository": "CineHarbor/cineharbor-core",
+      "revision": "05989fb6f2fe388d8eaeb4128445ac4c61662f5a",
+      "run_id": 35382333866,
+      "detail": "Rust fmt failed; check, test and clippy were skipped. Requires repair and fresh successful executions."
+    },
+    {
+      "id": "UPDATER-REAL-UPGRADE",
+      "kind": "UNVERIFIED",
+      "detail": "Real signed old-to-new upgrade with preserved user data is required before release-ready."
+    }
+  ]
+}
