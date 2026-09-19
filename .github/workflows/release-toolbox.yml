@@ -1,0 +1,105 @@
+name: Release test environment
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/release-toolbox.yml']
+
+permissions:
+  contents: read
+
+jobs:
+  rust:
+    name: Materialize locked Rust test environment
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - name: Resolve source revisions
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p workspace evidence toolbox
+          for repo in cineharbor-core cineharbor-addon-sdk cineharbor-desktop; do
+            git clone --depth 1 --branch main "https://github.com/CineHarbor/$repo.git" "workspace/$repo"
+            printf '%s %s\n' "$repo" "$(git -C "workspace/$repo" rev-parse HEAD)" >> evidence/revisions.txt
+          done
+      - name: Install declared Rust and matching WASM bridge CLI
+        shell: bash
+        run: |
+          set -euo pipefail
+          rustup toolchain install 1.98.1 --profile minimal --component rustfmt --component clippy --target wasm32-unknown-unknown
+          rustup default 1.98.1
+          version=$(python3 -c 'import tomllib; d=tomllib.load(open("workspace/cineharbor-core/Cargo.lock","rb")); print(next(p["version"] for p in d["package"] if p["name"] == "wasm-bindgen"))')
+          cargo install wasm-bindgen-cli --version "$version" --locked
+          rustc --version --verbose > evidence/rust-toolchain.txt
+          cargo --version >> evidence/rust-toolchain.txt
+          wasm-bindgen --version >> evidence/rust-toolchain.txt
+      - name: Materialize locked dependency registries
+        shell: bash
+        run: |
+          set -euo pipefail
+          for repo in cineharbor-core cineharbor-addon-sdk cineharbor-desktop; do
+            cargo fetch --locked --manifest-path "workspace/$repo/Cargo.toml"
+          done
+      - name: Package offline tooling without credentials or fonts
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p toolbox/bin toolbox/cargo-home
+          cp "$(command -v wasm-bindgen)" toolbox/bin/
+          cp "$(command -v wasm-bindgen-test-runner)" toolbox/bin/
+          cp -a "$HOME/.cargo/registry" toolbox/cargo-home/
+          cp -a "$HOME/.rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu" toolbox/rust
+          rm -rf toolbox/rust/share/doc
+          cp evidence/* toolbox/
+          tar --exclude='*.ttf' --exclude='*.otf' --exclude='*.woff' --exclude='*.woff2' --exclude='*.eot' -czf evidence/rust-toolbox.tar.gz -C toolbox .
+          tar --exclude='.git' --exclude='*.ttf' --exclude='*.otf' --exclude='*.woff' --exclude='*.woff2' --exclude='*.eot' -czf evidence/rust-sources.tar.gz -C workspace .
+          sha256sum evidence/*.tar.gz > evidence/SHA256SUMS
+      - uses: actions/upload-artifact@v4
+        with:
+          name: release-rust-toolbox
+          path: evidence/
+          if-no-files-found: error
+          retention-days: 2
+          compression-level: 0
+  node:
+    name: Materialize locked ${{ matrix.repository }} dependencies
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        repository: [cineharbor-web, cineharbor-desktop, cineharbor-download-site]
+    steps:
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '22'
+          package-manager-cache: false
+      - name: Resolve source and install locked packages
+        env:
+          REPOSITORY: ${{ matrix.repository }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p evidence toolbox
+          git clone --depth 1 --branch main "https://github.com/CineHarbor/$REPOSITORY.git" workspace
+          npm install --prefix toolbox --no-save pnpm@10.14.0
+          printf '%s %s\n' "$REPOSITORY" "$(git -C workspace rev-parse HEAD)" > evidence/revisions.txt
+          node --version > evidence/node-version.txt
+          (cd workspace && node ../toolbox/node_modules/pnpm/bin/pnpm.cjs install --frozen-lockfile)
+      - name: Package dependencies and provenance without credentials or fonts
+        shell: bash
+        run: |
+          set -euo pipefail
+          tar --exclude='*.ttf' --exclude='*.otf' --exclude='*.woff' --exclude='*.woff2' --exclude='*.eot' -czf evidence/node-dependencies.tar.gz -C workspace node_modules
+          tar --exclude='*.ttf' --exclude='*.otf' --exclude='*.woff' --exclude='*.woff2' --exclude='*.eot' -czf evidence/pnpm-tool.tar.gz -C toolbox/node_modules pnpm
+          cp workspace/pnpm-lock.yaml evidence/
+          sha256sum evidence/*.tar.gz > evidence/SHA256SUMS
+      - uses: actions/upload-artifact@v4
+        with:
+          name: release-node-${{ matrix.repository }}
+          path: evidence/
+          if-no-files-found: error
+          retention-days: 2
+          compression-level: 0
