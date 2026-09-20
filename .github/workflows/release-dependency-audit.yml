@@ -1,0 +1,112 @@
+name: Immutable release dependency review
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/release-dependency-audit.yml'
+      - 'scripts/release-dependency-audit.py'
+      - 'tests/test_release_dependency_audit.py'
+      - 'docs/releases/1.0.0/audit-inputs.json'
+  pull_request:
+    paths:
+      - '.github/workflows/release-dependency-audit.yml'
+      - 'scripts/release-dependency-audit.py'
+      - 'tests/test_release_dependency_audit.py'
+      - 'docs/releases/1.0.0/audit-inputs.json'
+permissions:
+  contents: read
+concurrency:
+  group: dependency-review-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  contracts:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+      - run: python3 -m unittest discover -s tests -v
+  node:
+    name: Node audit ${{ matrix.repository }}
+    needs: contracts
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        repository: [cineharbor-web, cineharbor-desktop, cineharbor-download-site, cineharbor-worker]
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+      - uses: pnpm/action-setup@v5
+        with:
+          version: '10.14.0'
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '22'
+          package-manager-cache: false
+      - name: Audit all locked dependencies without ignore or fix options
+        env:
+          HUSKY: '0'
+          NEXT_TELEMETRY_DISABLED: '1'
+        run: |
+          mkdir -p audit-evidence
+          { node --version; npm --version; pnpm --version; } > audit-evidence/tools.txt
+          python3 scripts/release-dependency-audit.py node --repository '${{ matrix.repository }}'
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: dependency-review-${{ matrix.repository }}-${{ github.run_id }}-${{ github.run_attempt }}
+          path: audit-evidence/
+          if-no-files-found: error
+          retention-days: 30
+  rust:
+    name: Rust lockfile advisories and maintenance warnings
+    needs: contracts
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+      - name: Install pinned audit tool and capture current advisory database
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p audit-evidence
+          rustup toolchain install 1.98.1 --profile minimal
+          cargo +1.98.1 install cargo-audit --version 0.22.2 --locked --no-default-features
+          git clone --depth 1 https://github.com/RustSec/advisory-db.git advisory-db
+          { cargo audit --version; rustc +1.98.1 --version; git -C advisory-db rev-parse HEAD; sha256sum "$(command -v cargo-audit)"; } > audit-evidence/tools.txt
+      - name: Audit every Rust lock without ignored advisories or platform filtering
+        run: python3 scripts/release-dependency-audit.py rust --database advisory-db
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: dependency-review-rust-${{ github.run_id }}-${{ github.run_attempt }}
+          path: audit-evidence/
+          if-no-files-found: error
+          retention-days: 30
+  repeat_verified_main:
+    name: Repeat clean audit of unchanged main once
+    needs: [node, rust]
+    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    permissions:
+      actions: write
+      contents: read
+    steps:
+      - env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          current=$(gh api "repos/$GITHUB_REPOSITORY/git/ref/heads/main" --jq '.object.sha')
+          if [ "$current" != "$GITHUB_SHA" ]; then
+            echo 'Newer main owns its audit; no stale repeat.'
+            exit 0
+          fi
+          gh workflow run release-dependency-audit.yml --repo "$GITHUB_REPOSITORY" --ref main

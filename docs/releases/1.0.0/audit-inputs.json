@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "scope": "Immutable integration inputs; dependency reports are not full product, license, signed-artifact or deployment acceptance.",
+  "repositories": {
+    "cineharbor-addon-sdk": "3ab4ff8fcc38a6f0849389a7c6b66291f3ca341d",
+    "cineharbor-core": "246411ba6c72b5b79b6e14598228c62a16857309",
+    "cineharbor-web": "97cf1bf55033ed16a2f0f77a97c28848aa323956",
+    "cineharbor-desktop": "39d885531144636487bad37af497373ca4ca6a78",
+    "cineharbor-worker": "bb26dffab86813d42d072eca3ac6af1f1e25cc66",
+    "cineharbor-download-site": "531a3e731f9c1027ea81676491a068d35bfd04f6"
+  },
+  "desktop_context": "Merged PR #2 after every portable/native gate passed; complete twice-executed main and signed/installed acceptance remain separate."
+}

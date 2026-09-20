@@ -40,3 +40,9 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
+
+# Disposable release audit workspaces and raw reports
+/audit-workspace/
+/audit-evidence/
+/advisory-db/
+__pycache__/
