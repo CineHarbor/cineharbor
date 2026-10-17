@@ -1,32 +1,37 @@
 {
   "schema_version": 1,
   "target_version": "1.0.0",
-  "phase": "EXECUTING",
+  "phase": "INSTALLATION_ACCEPTANCE_NEXT",
   "release_ready": false,
   "public_release_executed": false,
   "evidence_policy": "Required gates need observed results tied to immutable source revisions; unknown and skipped are not passes.",
   "observed_blockers": [
     {
-      "id": "MEDIA-SECURITY-AND-TRANSPORT",
-      "kind": "RELEASE_BLOCKER",
-      "repository": "CineHarbor/cineharbor-addon-sdk",
-      "revision": "ca2ffa7c34c7c5e212f24c36b8defe2ea11256d0",
-      "detail": "HLS token propagation, redirect/document resolution and error redaction are repaired and tested. Egress/SSRF/DNS-rebinding/no-open-proxy, Live authorization, Range/HEAD and bounded/streaming byte handling remain open; this repair is not full media security acceptance."
-    },
-    {
-      "id": "DOWNSTREAM-RELEASE-ALIGNMENT",
-      "kind": "RELEASE_BLOCKER",
-      "detail": "Web 9fd1fc0b and Desktop 1fd69e23 still have 0.1.0 package versions and older Core/SDK pins. Align the complete release unit and rerun all affected mandatory gates twice before certification."
-    },
-    {
-      "id": "UPDATER-REAL-UPGRADE",
+      "id": "DESKTOP-INSTALLED-ACCEPTANCE",
       "kind": "UNVERIFIED",
-      "detail": "Real signed old-to-new upgrade with preserved user data is required before release-ready. Unsigned native builds do not satisfy this gate."
+      "repository": "CineHarbor/cineharbor-desktop",
+      "revision": "39d885531144636487bad37af497373ca4ca6a78",
+      "detail": "All 3 native unsigned installer build jobs passed twice; real installer install/startup/restart/sidecar and preserved local data have NOT been observed. Prioritize hosted native installation tests."
     },
     {
-      "id": "FINAL-RELEASE-MATRIX",
+      "id": "DEPENDENCY-REVIEW",
+      "kind": "RELEASE_BLOCKER",
+      "repository": "CineHarbor/cineharbor",
+      "pull_request": 1,
+      "run_id": 35511058147,
+      "detail": "Open immutable dependency-review PR failed: Rust lock reviews (SDK/Core/Desktop) and Web Node audit FINDINGS_OR_ERROR; severity/root causes require audit-artifact triage. Other Node audits passed."
+    },
+    {
+      "id": "APP-AND-SERVICE-ACCEPTANCE",
       "kind": "UNVERIFIED",
-      "detail": "Final revisions, twice-executed mandatory CI steps, full product acceptance, production deployments, architecture retirement, signed assets, security/license review and version alignment are not yet certified."
+      "detail": "Real production VOD/Live/media player/long downloads, browser/PWA persistence, ADR consumer audit, served site, license/brand review and real desktop data retention remain unverified."
+    },
+    {
+      "id": "SIGNING-AND-UPDATER",
+      "kind": "DEFERRED_TO_PUBLIC_RELEASE",
+      "repository": "CineHarbor/cineharbor-desktop",
+      "run_id": 35510892575,
+      "detail": "Owner-approved deferral of official code signing/notarization, signed RC and cryptographically verified old-to-new updater until public release. Updater signing key configured, approved Apple/Windows signing prerequisites missing; no bypass, waiver or public release."
     }
   ],
   "historical_observations": [
@@ -51,32 +56,91 @@
   ],
   "observed_ci": [
     {
-      "repository": "CineHarbor/cineharbor-web",
-      "revision": "9fd1fc0b94ca72578dec2f0afbf3cea97e70cccc",
-      "run_ids": [35438906907, 35439140734],
-      "workflow_conclusions": ["success", "success"],
-      "scope": "Previously observed workflow conclusions, not blanket certification of the full release acceptance matrix."
-    },
-    {
-      "repository": "CineHarbor/cineharbor-desktop",
-      "revision": "1fd69e23d3d493b57ac280ff72623ab0eadb7d4d",
-      "run_ids": [35447427945, 35448987352],
-      "workflow_conclusions": ["success", "success"],
-      "required_job_steps_verified": true,
-      "required_jobs": ["Release safety, tooling and Rust formatting", "Pinned WASM and real Desktop static export", "Native Windows x64", "Native macOS Intel", "Native macOS Apple Silicon"],
-      "scope": "Complete required portable/WASM/native check/test/strict Clippy and unsigned installer verification twice at the same SHA. Excludes signed RC, installed playback and real updater/data-retention acceptance."
+      "repository": "CineHarbor/cineharbor-core",
+      "revision": "246411ba6c72b5b79b6e14598228c62a16857309",
+      "run_ids": [
+        35507419988,
+        35507456971
+      ],
+      "workflow_conclusions": [
+        "success",
+        "success"
+      ],
+      "scope": "Two full main CI passes at identical SHA; not equivalent to production/installed acceptance."
     },
     {
       "repository": "CineHarbor/cineharbor-addon-sdk",
-      "revision": "ca2ffa7c34c7c5e212f24c36b8defe2ea11256d0",
-      "tree_sha": "350baa04311f5ba3b0934a069d9ec7c8a26cd511",
-      "pull_request": 3,
-      "pr_run_id": 35483622714,
-      "run_ids": [35483666706, 35483692103],
-      "workflow_conclusions": ["success", "success"],
-      "required_job_steps_verified": true,
-      "required_jobs": ["Rust fmt", "Rust check", "Rust test", "Rust clippy"],
-      "scope": "All required PR gates and two complete main matrices passed. Local verification also passed 47 workspace tests with eight new tests and four negative controls. No full media-security, deployed-service or real-decoder certification."
+      "revision": "3ab4ff8fcc38a6f0849389a7c6b66291f3ca341d",
+      "run_ids": [
+        35501487450,
+        35501530721
+      ],
+      "workflow_conclusions": [
+        "success",
+        "success"
+      ],
+      "scope": "Two full main CI passes at identical SHA; not equivalent to production/installed acceptance."
+    },
+    {
+      "repository": "CineHarbor/cineharbor-web",
+      "revision": "97cf1bf55033ed16a2f0f77a97c28848aa323956",
+      "run_ids": [
+        35508691724,
+        35508936072
+      ],
+      "workflow_conclusions": [
+        "success",
+        "success"
+      ],
+      "scope": "Two full main CI passes at identical SHA; not equivalent to production/installed acceptance."
+    },
+    {
+      "repository": "CineHarbor/cineharbor-desktop",
+      "revision": "39d885531144636487bad37af497373ca4ca6a78",
+      "run_ids": [
+        35510892612,
+        35511311874
+      ],
+      "workflow_conclusions": [
+        "success",
+        "success"
+      ],
+      "scope": "Three platform native check/test/clippy and actual unsigned bundle builds passed; not installed/signed acceptance."
+    },
+    {
+      "repository": "CineHarbor/cineharbor-worker",
+      "revision": "bb26dffab86813d42d072eca3ac6af1f1e25cc66",
+      "run_ids": [
+        35455531459,
+        35455550411
+      ],
+      "workflow_conclusions": [
+        "success",
+        "success"
+      ],
+      "scope": "Two full main CI passes at identical SHA; not equivalent to production/installed acceptance."
+    },
+    {
+      "repository": "CineHarbor/cineharbor-download-site",
+      "revision": "531a3e731f9c1027ea81676491a068d35bfd04f6",
+      "run_ids": [
+        39015356028
+      ],
+      "workflow_conclusions": [
+        "success"
+      ],
+      "scope": "2026-10-17 scheduled production static build plus gh-pages publish job; not independently verified served-site content."
+    },
+    {
+      "repository": "CineHarbor/cineharbor",
+      "revision": "d91fbf77f690f8625dbd13537a41518acf1a205a",
+      "run_ids": [
+        35483816784
+      ],
+      "workflow_conclusions": [
+        "success"
+      ],
+      "scope": "Source audit at the prior facade head; canonical checkpoint update in progress."
     }
   ],
   "verified_publication": {
@@ -90,14 +154,81 @@
   },
   "verified_source_pushes": [
     {
+      "repository": "CineHarbor/cineharbor-core",
+      "ref": "refs/heads/main",
+      "sha": "246411ba6c72b5b79b6e14598228c62a16857309",
+      "scope": "Observed main ref at 2026-10-17 reconciliation, not public release."
+    },
+    {
       "repository": "CineHarbor/cineharbor-addon-sdk",
       "ref": "refs/heads/main",
-      "sha": "ca2ffa7c34c7c5e212f24c36b8defe2ea11256d0",
-      "pull_request": 3,
-      "candidate_sha": "801b3213efb5df20f689c691edb2eea0d1a7bf19",
-      "tree_sha": "350baa04311f5ba3b0934a069d9ec7c8a26cd511"
+      "sha": "3ab4ff8fcc38a6f0849389a7c6b66291f3ca341d",
+      "scope": "Observed main ref at 2026-10-17 reconciliation, not public release."
+    },
+    {
+      "repository": "CineHarbor/cineharbor-web",
+      "ref": "refs/heads/main",
+      "sha": "97cf1bf55033ed16a2f0f77a97c28848aa323956",
+      "scope": "Observed main ref at 2026-10-17 reconciliation, not public release."
+    },
+    {
+      "repository": "CineHarbor/cineharbor-desktop",
+      "ref": "refs/heads/main",
+      "sha": "39d885531144636487bad37af497373ca4ca6a78",
+      "scope": "Observed main ref at 2026-10-17 reconciliation, not public release."
+    },
+    {
+      "repository": "CineHarbor/cineharbor-worker",
+      "ref": "refs/heads/main",
+      "sha": "bb26dffab86813d42d072eca3ac6af1f1e25cc66",
+      "scope": "Observed main ref at 2026-10-17 reconciliation, not public release."
+    },
+    {
+      "repository": "CineHarbor/cineharbor-download-site",
+      "ref": "refs/heads/main",
+      "sha": "531a3e731f9c1027ea81676491a068d35bfd04f6",
+      "scope": "Observed main ref at 2026-10-17 reconciliation, not public release."
     }
   ],
   "recovery_evidence": ".agnir/evidence/2026-09-19-execution-recovery.md",
-  "latest_execution_evidence": ".agnir/evidence/2026-09-20-media-and-native-verification.md"
+  "latest_execution_evidence": ".agnir/evidence/2026-10-17-release-matrix-install-first.md",
+  "last_reconciled_utc_date": "2026-10-17",
+  "priority": "ACTUAL_NATIVE_INSTALLATION_FIRST",
+  "publication_deferred_gates": [
+    "MACOS_DEVELOPER_ID_AND_NOTARIZATION",
+    "WINDOWS_APPROVED_CODE_SIGNING",
+    "SIGNED_RC_AND_SIGNED_UPDATER_VALIDATION"
+  ],
+  "source_heads": {
+    "CineHarbor/cineharbor": "d91fbf77f690f8625dbd13537a41518acf1a205a",
+    "CineHarbor/cineharbor-core": "246411ba6c72b5b79b6e14598228c62a16857309",
+    "CineHarbor/cineharbor-addon-sdk": "3ab4ff8fcc38a6f0849389a7c6b66291f3ca341d",
+    "CineHarbor/cineharbor-web": "97cf1bf55033ed16a2f0f77a97c28848aa323956",
+    "CineHarbor/cineharbor-desktop": "39d885531144636487bad37af497373ca4ca6a78",
+    "CineHarbor/cineharbor-worker": "bb26dffab86813d42d072eca3ac6af1f1e25cc66",
+    "CineHarbor/cineharbor-download-site": "531a3e731f9c1027ea81676491a068d35bfd04f6"
+  },
+  "open_pull_requests": [
+    {
+      "repository": "CineHarbor/cineharbor",
+      "number": 1,
+      "head": "d1d0e584f56bb8004cccfcafd63caf980277a4a2",
+      "run_id": 35511058147,
+      "status": "failing dependency review"
+    },
+    {
+      "repository": "CineHarbor/cineharbor-web",
+      "number": 1,
+      "head": "0b3cba81bf2516c3aba97c59df60b1afb4b769ed",
+      "run_id": 35455928652,
+      "status": "conflicted and failing historical candidate"
+    }
+  ],
+  "native_installed_acceptance": {
+    "status": "NOT_YET_VERIFIED",
+    "windows_x64": "NOT_YET_VERIFIED",
+    "macos_intel": "NOT_YET_VERIFIED",
+    "macos_apple_silicon": "NOT_YET_VERIFIED",
+    "separate_from_unsigned_build_ci": true
+  }
 }

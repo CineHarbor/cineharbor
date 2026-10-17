@@ -27,6 +27,10 @@ ADR-0006 defines a single content data plane: in-process core (native/WASM) + re
 - Advanced Background Fetch/OPFS/cache experiments; current supported download paths remain required.
 - New mobile/TV clients, unbounded addon expansion and nonblocking optimizations.
 
+## 2026-10-17 Principal sequencing amendment — actual installation first
+
+Prioritize **real native installation/startup/sidecar/data persistence** from unsigned verification installers on Windows x64, macOS Intel and macOS Apple Silicon. Signatures/notarization, three-platform **signed** release candidates and cryptographically verified signed old-to-new updater are **deferred to the later public release phase** at the Principal's express request; they are not considered passed or waived. An unsigned installer may be used for current isolated installation testing, not distributed as a trusted public RC. Keep separate evidence fields for built, installed, launched, retained data and signed/updater acceptance. The original public-publication gates stay mandatory **before** an actual public release; deferral does not authorize public publication, certificate bypass in a public artifact, or changing RELEASE_READY to true on unobserved checks.
+
 ## Gate rules
 
 P0 = 0 and P1 = 0. P2 must be documented; P3 belongs in the backlog. Mock protocol/UI tests are useful development evidence but do not replace real updater or production-deployment tests. External credentials, signing keys, OS/production access or provider authorization that cannot be obtained safely are recorded as EXTERNAL_BLOCKER; independent work continues. Never generate a replacement signing identity silently, disclose secrets, or publish a public release to make a gate appear complete.
