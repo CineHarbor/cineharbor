@@ -52,3 +52,9 @@
 - 分类：compatible operational upgrade；Core/Profile 仍为 `1.0` / `repository-filesystem/1.0`，保留 `project.identity`、`continuity.lineage`、memory locators/content、policy 与无关 Project 内容。
 - 激活 packaging：新增 canonical 根 `AGNIR.md`；`AGENTS.md` 改为直达 `AGNIR.md` 的 locator；README `## Agnir Project Instructions` 收敛为兼容 locator。
 - provenance：`AGNIR.yaml > extensions > agnir/operations` 更新为 release `1.0.2` / applied revision `b5626394ec40a5cb7a28c01892acde07cc0adc8e`。
+
+## 2026-10-17 — 1.0.0 验收顺序：优先真实安装，签名推迟到公开发布（Principal）
+
+- 立即同步七仓库远端主线状态及发布证据，并持续开发；当前最优先完成三个目标系统真实安装包安装、应用启动、sidecar/数据持久化验收，不得以构建成功或模拟测试冒充真实安装。
+- 正式 Apple Developer ID 签名与 notarization、Windows 正式签名及已签名自动升级验证延至 **公开发布阶段**。这是执行次序的改变，非绕过安全校验、非签名已通过，也不授权现在公开发布或替换已批准签名身份。
+- 当前阶段可使用独立无签名测试构建执行安装/重启/数据验证；之后公开发布前仍必须完成签名、签名更新与安全/品牌等所有正式门禁。持续保持 RELEASE_READY=false、PUBLIC_RELEASE_EXECUTED=false，直至按对应阶段标准取得真实证据。
