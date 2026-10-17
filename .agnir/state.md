@@ -41,3 +41,7 @@ Principal 2026-10-17 directive prioritizes **real unsigned application installat
 ### 2026-10-17 dependency-review artifact classification
 
 Downloaded and inspected audit artifacts from facade PR #1 run 35511058147. These are real lock findings, not mere CI transport errors: Web 32 advisories (3 critical, 13 high, 13 moderate, 3 low), and SDK/Core/Desktop each contains vulnerable rustls 0.23.43 (first patched 0.23.45). Desktop also has 6 unmaintained plus 1 unsoundness advisory warnings. See `.agnir/evidence/2026-10-17-dependency-findings.md`. This is based on 2026-09-20 advisory evidence, not a newly run 2026-10-17 scan. Installation-first priority and release_ready=false remain unchanged.
+
+## 2026-10-18 verified installed smoke + SDK dependency repair
+
+Three native Desktop unsigned installers were **actually installed and launched twice** in GitHub hosted PR CI 39041060877 (Windows x64, macOS Intel, macOS Apple Silicon). PR #3 merged to Desktop main 40e073df8c338b0530facbe403d8a8929afa0a6d. Main post-merge CI and deeper PR #4 /health/SQLite checks were still running when this checkpoint was recorded. SDK rustls security lock fix 0.23.45 merged to 10ce024c9f5b1ea739fca9e239488ee4411f403c; two full SDK main CI runs 39060396338 and 39060462972 passed. Core security alignment PR #3 and Web/desktop residual audit require work. See `.agnir/evidence/2026-10-18-three-platform-install-and-security.md`. Signing/updater deferred until public release, release_ready=false.

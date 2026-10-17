@@ -8,10 +8,10 @@
   "observed_blockers": [
     {
       "id": "DESKTOP-INSTALLED-ACCEPTANCE",
-      "kind": "UNVERIFIED",
+      "kind": "PARTIALLY_VERIFIED",
       "repository": "CineHarbor/cineharbor-desktop",
-      "revision": "39d885531144636487bad37af497373ca4ca6a78",
-      "detail": "All 3 native unsigned installer build jobs passed twice; real installer install/startup/restart/sidecar and preserved local data have NOT been observed. Prioritize hosted native installation tests."
+      "revision": "40e073df8c338b0530facbe403d8a8929afa0a6d",
+      "detail": "Real unsigned installed/relaunched Windows/macOS Intel/Apple Silicon PR CI passed at merge test SHA df2c1950, with 3 archived artifact checksums. Exact merged main two CI passes remain pending; installed local-service health and SQLite persistence are separate PR #4 (unverified), not yet a release acceptance."
     },
     {
       "id": "DEPENDENCY-REVIEW",
@@ -19,7 +19,7 @@
       "repository": "CineHarbor/cineharbor",
       "pull_request": 1,
       "run_id": 35511058147,
-      "detail": "Open immutable dependency-review PR failed: Rust lock reviews (SDK/Core/Desktop) and Web Node audit FINDINGS_OR_ERROR; severity/root causes require audit-artifact triage. Other Node audits passed."
+      "detail": "Rustls advisory remediated in SDK 10ce024c (two main green runs). Core PR #3 pins SDK and fixes rustls 0.23.45 (PR CI pending); Desktop rustls and 32 historical Web advisories still open. Immutable audit PR #1 remains failing until re-audited."
     },
     {
       "id": "APP-AND-SERVICE-ACCEPTANCE",
@@ -70,16 +70,16 @@
     },
     {
       "repository": "CineHarbor/cineharbor-addon-sdk",
-      "revision": "3ab4ff8fcc38a6f0849389a7c6b66291f3ca341d",
+      "revision": "10ce024c9f5b1ea739fca9e239488ee4411f403c",
       "run_ids": [
-        35501487450,
-        35501530721
+        39060396338,
+        39060462972
       ],
       "workflow_conclusions": [
         "success",
         "success"
       ],
-      "scope": "Two full main CI passes at identical SHA; not equivalent to production/installed acceptance."
+      "scope": "Patched rustls 0.23.45 plus complete locked fmt/test/check/strict-clippy two main runs at identical SHA; not full addon runtime/deployment audit."
     },
     {
       "repository": "CineHarbor/cineharbor-web",
@@ -96,16 +96,16 @@
     },
     {
       "repository": "CineHarbor/cineharbor-desktop",
-      "revision": "39d885531144636487bad37af497373ca4ca6a78",
+      "revision": "40e073df8c338b0530facbe403d8a8929afa0a6d",
       "run_ids": [
-        35510892612,
-        35511311874
+        39041060877,
+        39059537440
       ],
       "workflow_conclusions": [
         "success",
-        "success"
+        "in_progress_at_checkpoint"
       ],
-      "scope": "Three platform native check/test/clippy and actual unsigned bundle builds passed; not installed/signed acceptance."
+      "scope": "PR #3 passed native builds and actual unsigned OS installations/restarts on all 3 native runners at PR test-merge SHA df2c1950; merged main SHA 40e073df is in first CI run and NOT yet confirmed passed twice."
     },
     {
       "repository": "CineHarbor/cineharbor-worker",
@@ -191,7 +191,7 @@
     }
   ],
   "recovery_evidence": ".agnir/evidence/2026-09-19-execution-recovery.md",
-  "latest_execution_evidence": ".agnir/evidence/2026-10-17-release-matrix-install-first.md",
+  "latest_execution_evidence": ".agnir/evidence/2026-10-18-three-platform-install-and-security.md",
   "last_reconciled_utc_date": "2026-10-17",
   "priority": "ACTUAL_NATIVE_INSTALLATION_FIRST",
   "publication_deferred_gates": [
@@ -202,9 +202,9 @@
   "source_heads": {
     "CineHarbor/cineharbor": "d91fbf77f690f8625dbd13537a41518acf1a205a",
     "CineHarbor/cineharbor-core": "246411ba6c72b5b79b6e14598228c62a16857309",
-    "CineHarbor/cineharbor-addon-sdk": "3ab4ff8fcc38a6f0849389a7c6b66291f3ca341d",
+    "CineHarbor/cineharbor-addon-sdk": "10ce024c9f5b1ea739fca9e239488ee4411f403c",
     "CineHarbor/cineharbor-web": "97cf1bf55033ed16a2f0f77a97c28848aa323956",
-    "CineHarbor/cineharbor-desktop": "39d885531144636487bad37af497373ca4ca6a78",
+    "CineHarbor/cineharbor-desktop": "40e073df8c338b0530facbe403d8a8929afa0a6d",
     "CineHarbor/cineharbor-worker": "bb26dffab86813d42d072eca3ac6af1f1e25cc66",
     "CineHarbor/cineharbor-download-site": "531a3e731f9c1027ea81676491a068d35bfd04f6"
   },
@@ -225,11 +225,17 @@
     }
   ],
   "native_installed_acceptance": {
-    "status": "NOT_YET_VERIFIED",
-    "windows_x64": "NOT_YET_VERIFIED",
-    "macos_intel": "NOT_YET_VERIFIED",
-    "macos_apple_silicon": "NOT_YET_VERIFIED",
-    "separate_from_unsigned_build_ci": true
+    "status": "PR_CI_THREE_PLATFORMS_PASSED_MAIN_CONFIRMATION_PENDING",
+    "windows_x64": "PR_CI_SUCCESS",
+    "macos_intel": "PR_CI_SUCCESS",
+    "macos_apple_silicon": "PR_CI_SUCCESS",
+    "pr": 3,
+    "pr_run_id": 39041060877,
+    "pr_test_merge_revision": "df2c1950930853df4c8279571fa5517046a1e17c",
+    "main_revision": "40e073df8c338b0530facbe403d8a8929afa0a6d",
+    "main_first_run": 39059537440,
+    "sidecar_health_and_sqlite": "IN_PR_4_NOT_YET_VERIFIED",
+    "separate_from_signed_updater": true
   },
   "dependency_audit_snapshot": {
     "run_id": 35511058147,
@@ -261,8 +267,32 @@
       "minimum_patched_version": "0.23.45",
       "advisory": "RUSTSEC-2026-0285",
       "desktop_unmaintained_warnings": 6,
-      "desktop_unsound_warnings": 1
+      "desktop_unsound_warnings": 1,
+      "sdk_fix": {
+        "revision": "10ce024c9f5b1ea739fca9e239488ee4411f403c",
+        "version": "0.23.45",
+        "main_runs": [
+          39060396338,
+          39060462972
+        ],
+        "status": "LOCK_PATCH_VERIFIED_CI_AUDIT_REFRESH_PENDING"
+      }
     },
     "note": "Exact lock-based historical audit, not current 2026-10-17 refreshed database."
+  },
+  "installation_test_followup": {
+    "repository": "CineHarbor/cineharbor-desktop",
+    "pull_request": 4,
+    "head_sha": "514cc5e6965210052f87037facd1468bf309bf75",
+    "pr_run_id": 39060011521,
+    "status": "CI_IN_PROGRESS_AS_OF_CHECKPOINT",
+    "scope": "Installed sidecar HTTP health and actual SQLite marker retention across two app process starts"
+  },
+  "active_security_repair": {
+    "repository": "CineHarbor/cineharbor-core",
+    "pull_request": 3,
+    "head_sha": "0589966cba4c88cbeaa6e5280d6e980e2329c640",
+    "run_id": 39060482438,
+    "status": "CI_IN_PROGRESS_AS_OF_CHECKPOINT"
   }
 }
