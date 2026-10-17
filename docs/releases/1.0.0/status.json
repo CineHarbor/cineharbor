@@ -191,7 +191,7 @@
     }
   ],
   "recovery_evidence": ".agnir/evidence/2026-09-19-execution-recovery.md",
-  "latest_execution_evidence": ".agnir/evidence/2026-10-18-three-platform-install-and-security.md",
+  "latest_execution_evidence": ".agnir/evidence/2026-10-18-install-and-core-ci-followup.md",
   "last_reconciled_utc_date": "2026-10-17",
   "priority": "ACTUAL_NATIVE_INSTALLATION_FIRST",
   "publication_deferred_gates": [
@@ -201,10 +201,10 @@
   ],
   "source_heads": {
     "CineHarbor/cineharbor": "d91fbf77f690f8625dbd13537a41518acf1a205a",
-    "CineHarbor/cineharbor-core": "246411ba6c72b5b79b6e14598228c62a16857309",
+    "CineHarbor/cineharbor-core": "dc94a185cade51d951780248e11a669ece770f65",
     "CineHarbor/cineharbor-addon-sdk": "10ce024c9f5b1ea739fca9e239488ee4411f403c",
     "CineHarbor/cineharbor-web": "97cf1bf55033ed16a2f0f77a97c28848aa323956",
-    "CineHarbor/cineharbor-desktop": "40e073df8c338b0530facbe403d8a8929afa0a6d",
+    "CineHarbor/cineharbor-desktop": "f961c92a73042101a4219ddce5e5da14de22df50",
     "CineHarbor/cineharbor-worker": "bb26dffab86813d42d072eca3ac6af1f1e25cc66",
     "CineHarbor/cineharbor-download-site": "531a3e731f9c1027ea81676491a068d35bfd04f6"
   },
@@ -225,7 +225,7 @@
     }
   ],
   "native_installed_acceptance": {
-    "status": "PR_CI_THREE_PLATFORMS_PASSED_MAIN_CONFIRMATION_PENDING",
+    "status": "THREE_PLATFORMS_INSTALLED_AND_LAUNCHED_TWICE_ON_FINAL_40E_SOURCES",
     "windows_x64": "PR_CI_SUCCESS",
     "macos_intel": "PR_CI_SUCCESS",
     "macos_apple_silicon": "PR_CI_SUCCESS",
@@ -234,8 +234,9 @@
     "pr_test_merge_revision": "df2c1950930853df4c8279571fa5517046a1e17c",
     "main_revision": "40e073df8c338b0530facbe403d8a8929afa0a6d",
     "main_first_run": 39059537440,
-    "sidecar_health_and_sqlite": "IN_PR_4_NOT_YET_VERIFIED",
-    "separate_from_signed_updater": true
+    "sidecar_health_and_sqlite": "PR_4_PASSED_MAIN_F961_CONFIRMATION_IN_PROGRESS",
+    "separate_from_signed_updater": true,
+    "main_second_run": 39061854359
   },
   "dependency_audit_snapshot": {
     "run_id": 35511058147,
@@ -283,16 +284,19 @@
   "installation_test_followup": {
     "repository": "CineHarbor/cineharbor-desktop",
     "pull_request": 4,
-    "head_sha": "514cc5e6965210052f87037facd1468bf309bf75",
+    "main_sha": "f961c92a73042101a4219ddce5e5da14de22df50",
     "pr_run_id": 39060011521,
-    "status": "CI_IN_PROGRESS_AS_OF_CHECKPOINT",
-    "scope": "Installed sidecar HTTP health and actual SQLite marker retention across two app process starts"
+    "main_run_id": 39061967719,
+    "status": "MAIN_CI_IN_PROGRESS",
+    "scope": "Real installed sidecar health/config and SQLite persistence across app relaunch"
   },
   "active_security_repair": {
     "repository": "CineHarbor/cineharbor-core",
-    "pull_request": 3,
-    "head_sha": "0589966cba4c88cbeaa6e5280d6e980e2329c640",
-    "run_id": 39060482438,
-    "status": "CI_IN_PROGRESS_AS_OF_CHECKPOINT"
+    "revision": "dc94a185cade51d951780248e11a669ece770f65",
+    "run_ids": [
+      39060680237,
+      39060804061
+    ],
+    "status": "TWO_COMPLETE_MAIN_CI_PASSES; downstream pins pending"
   }
 }

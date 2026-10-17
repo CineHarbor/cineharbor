@@ -1,0 +1,5 @@
+# 2026-10-18 — installation and Core security follow-up
+
+Remote main SHA verification: SDK 10ce024c9f5b1ea739fca9e239488ee4411f403c; Core dc94a185cade51d951780248e11a669ece770f65; Desktop f961c92a73042101a4219ddce5e5da14de22df50. Core main Rust gates passed twice on 39060680237 and 39060804061, following patched SDK pin. Desktop prior main 40e073df8c338b0530facbe403d8a8929afa0a6d passed two complete main runs 39059537440 and 39061854359, including actual unsigned native installation/launch/restart on three OS runners. Deeper Desktop PR #4 (sidecar health/config/SQLite retained across relaunch) passed PR 39060011521 and merged to f961c92a; exact new main CI 39061967719 in progress at this checkpoint, so deeper gate is not claimed accepted on main. 
+
+Priority continues real installed app acceptance and subsequent manual interactive playback/download once automated checks are done. Formal signing/notarization and signed updater deferred to public release, not waived. Web/Core immutable pin alignment pending for the new Core/SDK; security audit and production service acceptance remain open. No public release.

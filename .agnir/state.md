@@ -45,3 +45,7 @@ Downloaded and inspected audit artifacts from facade PR #1 run 35511058147. Thes
 ## 2026-10-18 verified installed smoke + SDK dependency repair
 
 Three native Desktop unsigned installers were **actually installed and launched twice** in GitHub hosted PR CI 39041060877 (Windows x64, macOS Intel, macOS Apple Silicon). PR #3 merged to Desktop main 40e073df8c338b0530facbe403d8a8929afa0a6d. Main post-merge CI and deeper PR #4 /health/SQLite checks were still running when this checkpoint was recorded. SDK rustls security lock fix 0.23.45 merged to 10ce024c9f5b1ea739fca9e239488ee4411f403c; two full SDK main CI runs 39060396338 and 39060462972 passed. Core security alignment PR #3 and Web/desktop residual audit require work. See `.agnir/evidence/2026-10-18-three-platform-install-and-security.md`. Signing/updater deferred until public release, release_ready=false.
+
+## 2026-10-18 additional verification
+
+Core patched SDK/rustls alignment at dc94a185 passed two full main CI rounds 39060680237/39060804061. Desktop real-install main 40e073df passed two complete matrices including three native installs (39059537440/39061854359). Deeper sidecar/SQLite PR #4 passed 39060011521 and merged to Desktop f961c92a; new main CI 39061967719 was still running, so real persisted-data acceptance on final main is pending. `.agnir/evidence/2026-10-18-install-and-core-ci-followup.md`. Public signing deferred; release_ready=false.
