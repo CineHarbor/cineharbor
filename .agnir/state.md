@@ -49,3 +49,7 @@ Three native Desktop unsigned installers were **actually installed and launched 
 ## 2026-10-18 additional verification
 
 Core patched SDK/rustls alignment at dc94a185 passed two full main CI rounds 39060680237/39060804061. Desktop real-install main 40e073df passed two complete matrices including three native installs (39059537440/39061854359). Deeper sidecar/SQLite PR #4 passed 39060011521 and merged to Desktop f961c92a; new main CI 39061967719 was still running, so real persisted-data acceptance on final main is pending. `.agnir/evidence/2026-10-18-install-and-core-ci-followup.md`. Public signing deferred; release_ready=false.
+
+## 2026-10-18 patched Web + Desktop integration progress
+
+Verified Desktop f961c92a's first full main run 39061967719 passed all Windows/macOS installed sidecar/SQLite checks; second main run 39064018486 ongoing. Web c9f76d1c merges PR #4 patched Core/SDK pins after green PR run 39063901064; fresh Web main run 39064309813 in progress. Desktop PR #5 de7a099c5 repins all three source dependencies, PR run 39064374670 underway, not merged. These are separate candidate/source results; no claim of final twice-green updated unit. See `.agnir/evidence/2026-10-18-patched-integration-progress.md`. Security Node and manual GUI acceptance remain open; release_ready=false.

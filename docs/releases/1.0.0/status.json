@@ -191,7 +191,7 @@
     }
   ],
   "recovery_evidence": ".agnir/evidence/2026-09-19-execution-recovery.md",
-  "latest_execution_evidence": ".agnir/evidence/2026-10-18-install-and-core-ci-followup.md",
+  "latest_execution_evidence": ".agnir/evidence/2026-10-18-patched-integration-progress.md",
   "last_reconciled_utc_date": "2026-10-17",
   "priority": "ACTUAL_NATIVE_INSTALLATION_FIRST",
   "publication_deferred_gates": [
@@ -203,7 +203,7 @@
     "CineHarbor/cineharbor": "d91fbf77f690f8625dbd13537a41518acf1a205a",
     "CineHarbor/cineharbor-core": "dc94a185cade51d951780248e11a669ece770f65",
     "CineHarbor/cineharbor-addon-sdk": "10ce024c9f5b1ea739fca9e239488ee4411f403c",
-    "CineHarbor/cineharbor-web": "97cf1bf55033ed16a2f0f77a97c28848aa323956",
+    "CineHarbor/cineharbor-web": "c9f76d1cd71a11a478e3b98e352cf328aa445641",
     "CineHarbor/cineharbor-desktop": "f961c92a73042101a4219ddce5e5da14de22df50",
     "CineHarbor/cineharbor-worker": "bb26dffab86813d42d072eca3ac6af1f1e25cc66",
     "CineHarbor/cineharbor-download-site": "531a3e731f9c1027ea81676491a068d35bfd04f6"
@@ -225,18 +225,17 @@
     }
   ],
   "native_installed_acceptance": {
-    "status": "THREE_PLATFORMS_INSTALLED_AND_LAUNCHED_TWICE_ON_FINAL_40E_SOURCES",
-    "windows_x64": "PR_CI_SUCCESS",
-    "macos_intel": "PR_CI_SUCCESS",
-    "macos_apple_silicon": "PR_CI_SUCCESS",
-    "pr": 3,
-    "pr_run_id": 39041060877,
-    "pr_test_merge_revision": "df2c1950930853df4c8279571fa5517046a1e17c",
-    "main_revision": "40e073df8c338b0530facbe403d8a8929afa0a6d",
-    "main_first_run": 39059537440,
-    "sidecar_health_and_sqlite": "PR_4_PASSED_MAIN_F961_CONFIRMATION_IN_PROGRESS",
-    "separate_from_signed_updater": true,
-    "main_second_run": 39061854359
+    "status": "THREE_PLATFORM_NATIVE_INSTALL_SIDE_CAR_AND_SQLITE_FIRST_MAIN_PASSED_SECOND_RUNNING",
+    "windows_x64": "MAIN_39061967719_SUCCESS",
+    "macos_intel": "MAIN_39061967719_SUCCESS",
+    "macos_apple_silicon": "MAIN_39061967719_SUCCESS",
+    "main_revision": "f961c92a73042101a4219ddce5e5da14de22df50",
+    "main_first_run": 39061967719,
+    "main_second_run": 39064018486,
+    "main_second_status": "IN_PROGRESS",
+    "scope": "real NSIS/DMG install, two installed app launches, live sidecar 1.0.0 health, config, SQLite marker retained across relaunch",
+    "manual_interactive_playback": "NOT_VERIFIED",
+    "signed_updater": "DEFERRED_TO_PUBLIC_RELEASE"
   },
   "dependency_audit_snapshot": {
     "run_id": 35511058147,
@@ -298,5 +297,37 @@
       39060804061
     ],
     "status": "TWO_COMPLETE_MAIN_CI_PASSES; downstream pins pending"
+  },
+  "integration_chain": {
+    "sdk": {
+      "sha": "10ce024c9f5b1ea739fca9e239488ee4411f403c",
+      "main_runs": [
+        39060396338,
+        39060462972
+      ],
+      "status": "TWICE_VERIFIED"
+    },
+    "core": {
+      "sha": "dc94a185cade51d951780248e11a669ece770f65",
+      "main_runs": [
+        39060680237,
+        39060804061
+      ],
+      "status": "TWICE_VERIFIED"
+    },
+    "web": {
+      "sha": "c9f76d1cd71a11a478e3b98e352cf328aa445641",
+      "pr": 4,
+      "pr_run": 39063901064,
+      "main_run": 39064309813,
+      "status": "PR_PASS_MAIN_IN_PROGRESS"
+    },
+    "desktop": {
+      "base_main": "f961c92a73042101a4219ddce5e5da14de22df50",
+      "candidate": "de7a099c5b31a03c961eb860b6022374cbc0dcc0",
+      "pr": 5,
+      "pr_run": 39064374670,
+      "status": "PR_CI_IN_PROGRESS; DO_NOT_CLAIM_PINS_ON_MAIN"
+    }
   }
 }

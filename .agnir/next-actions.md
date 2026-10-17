@@ -1,7 +1,7 @@
-# CineHarbor Next Actions — 2026-10-18
+# CineHarbor Next Actions — 2026-10-18 patched release unit
 
-1. Desktop real installation main 40e073df is twice verified (39059537440/39061854359). Finish inspecting deeper installed sidecar /health, config and SQLite persistence on Desktop f961c92a new main run 39061967719, then repeat complete final main CI twice; repair any native failure.
-2. SDK rustls 0.23.45 (10ce024c9) and Core patched SDK lock (dc94a185) are each merged and twice CI-verified. Next update Web then Desktop immutable dependency pins to the verified source graph; execute fresh browser/native/installed matrices twice.
-3. Remediate Web Next/Swiper/PostCSS and Desktop rustls vulnerabilities without suppressions; run fresh audit across entire current lock graph. Reconcile stale Web PR #1 only after checking parity, and facade audit PR #1 after all findings repaired.
-4. Extend automated installed functional login/settings/profile/download/media/sidecar life-cycle, staged deployed addon/media/browser/PWA integration, download-site served link check, ADR consumer inventory, licensing/brand review. Treat external production/site access not granted as a specific manual blocker.
-5. Formal signing/notarization and real signed old-to-new updater only at separately authorized public release; no public assets now. RELEASE_READY=false / PUBLIC_RELEASE_EXECUTED=false.
+1. Confirm Desktop f961c92a installed sidecar/SQLite native CI twice (39061967719 success; 39064018486 running at checkpoint). Preserve installed checks for all Windows/macOS targets; real GUI user interactions remain unverified.
+2. Verify twice-complete SDK 10ce024c and Core dc94a185 already done; finish Web c9f76d1c two main CI runs after passing PR #4; then finish Desktop patched-pin PR #5 de7a099c5 on all native installed lanes, merge and require two full final main runs. No downstream main pin assumptions before merge.
+3. Once the source graph and installed CI are stable, hand off genuine installed GUI/manual playback and download tests on user's machine, recording exact artifact SHA, OS, sidecar/playback, settings/login/DB retention, source switching and failures. No false claim of manual GUI acceptance.
+4. Independently fix Web Next/Swiper/PostCSS and remaining Desktop dependency audit findings and repeat fresh strict audits. Resolve Web old PR, production addon/media, release-site served proof, ADR legacy routes, license/brand and rollout diagnostics.
+5. Official signing/notarization and real signed upgrade deferred by Principal to separate public-release phase; do not publish. RELEASE_READY=false / PUBLIC_RELEASE_EXECUTED=false.
