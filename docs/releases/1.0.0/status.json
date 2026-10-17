@@ -230,5 +230,39 @@
     "macos_intel": "NOT_YET_VERIFIED",
     "macos_apple_silicon": "NOT_YET_VERIFIED",
     "separate_from_unsigned_build_ci": true
+  },
+  "dependency_audit_snapshot": {
+    "run_id": 35511058147,
+    "executed_utc_date": "2026-09-20",
+    "reviewed_utc_date": "2026-10-17",
+    "status": "CONFIRMED_FINDINGS",
+    "report_evidence": ".agnir/evidence/2026-10-17-dependency-findings.md",
+    "web": {
+      "revision": "97cf1bf55033ed16a2f0f77a97c28848aa323956",
+      "total": 32,
+      "critical": 3,
+      "high": 13,
+      "moderate": 13,
+      "low": 3,
+      "affected_high_priority": [
+        "next",
+        "swiper",
+        "postcss"
+      ]
+    },
+    "rust": {
+      "affected": [
+        "cineharbor-addon-sdk",
+        "cineharbor-core",
+        "cineharbor-desktop"
+      ],
+      "dependency": "rustls",
+      "resolved_version": "0.23.43",
+      "minimum_patched_version": "0.23.45",
+      "advisory": "RUSTSEC-2026-0285",
+      "desktop_unmaintained_warnings": 6,
+      "desktop_unsound_warnings": 1
+    },
+    "note": "Exact lock-based historical audit, not current 2026-10-17 refreshed database."
   }
 }
