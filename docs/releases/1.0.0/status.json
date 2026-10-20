@@ -191,8 +191,8 @@
     }
   ],
   "recovery_evidence": ".agnir/evidence/2026-09-19-execution-recovery.md",
-  "latest_execution_evidence": ".agnir/evidence/2026-10-18-patched-integration-progress.md",
-  "last_reconciled_utc_date": "2026-10-17",
+  "latest_execution_evidence": ".agnir/evidence/2026-10-20-desktop-merge-and-web-security.md",
+  "last_reconciled_utc_date": "2026-10-20",
   "priority": "ACTUAL_NATIVE_INSTALLATION_FIRST",
   "publication_deferred_gates": [
     "MACOS_DEVELOPER_ID_AND_NOTARIZATION",
@@ -204,7 +204,7 @@
     "CineHarbor/cineharbor-core": "dc94a185cade51d951780248e11a669ece770f65",
     "CineHarbor/cineharbor-addon-sdk": "10ce024c9f5b1ea739fca9e239488ee4411f403c",
     "CineHarbor/cineharbor-web": "c9f76d1cd71a11a478e3b98e352cf328aa445641",
-    "CineHarbor/cineharbor-desktop": "f961c92a73042101a4219ddce5e5da14de22df50",
+    "CineHarbor/cineharbor-desktop": "a1a23017f39e049f762764ad0a3ed6eafeb302c2",
     "CineHarbor/cineharbor-worker": "bb26dffab86813d42d072eca3ac6af1f1e25cc66",
     "CineHarbor/cineharbor-download-site": "531a3e731f9c1027ea81676491a068d35bfd04f6"
   },
@@ -225,17 +225,20 @@
     }
   ],
   "native_installed_acceptance": {
-    "status": "THREE_PLATFORM_NATIVE_INSTALL_SIDE_CAR_AND_SQLITE_FIRST_MAIN_PASSED_SECOND_RUNNING",
-    "windows_x64": "MAIN_39061967719_SUCCESS",
-    "macos_intel": "MAIN_39061967719_SUCCESS",
-    "macos_apple_silicon": "MAIN_39061967719_SUCCESS",
-    "main_revision": "f961c92a73042101a4219ddce5e5da14de22df50",
-    "main_first_run": 39061967719,
-    "main_second_run": 39064018486,
-    "main_second_status": "IN_PROGRESS",
-    "scope": "real NSIS/DMG install, two installed app launches, live sidecar 1.0.0 health, config, SQLite marker retained across relaunch",
-    "manual_interactive_playback": "NOT_VERIFIED",
-    "signed_updater": "DEFERRED_TO_PUBLIC_RELEASE"
+    "status": "PATCHED_SOURCE_PR_THREE_PLATFORM_INSTALL_PASSED_FIRST_MAIN_PASSED_SECOND_RUNNING",
+    "repository": "CineHarbor/cineharbor-desktop",
+    "main_revision": "a1a23017f39e049f762764ad0a3ed6eafeb302c2",
+    "pr_number": 5,
+    "pr_head_sha": "de7a099c5b31a03c961eb860b6022374cbc0dcc0",
+    "pr_run": 39064374670,
+    "pr_installed_result": "SUCCESS_WINDOWS_X64_MACOS_INTEL_MACOS_ARM64",
+    "main_first_run": 39394712495,
+    "main_first_status": "SUCCESS",
+    "main_second_run": 39396757969,
+    "main_second_status": "IN_PROGRESS_AT_RECONCILIATION",
+    "scope": "Real unsigned installation, two installed starts, local sidecar health and SQLite marker retention",
+    "manual_gui_playback_downloads": "NOT_VERIFIED",
+    "formal_signed_updater": "DEFERRED_TO_PUBLIC_RELEASE"
   },
   "dependency_audit_snapshot": {
     "run_id": 35511058147,
@@ -301,33 +304,79 @@
   "integration_chain": {
     "sdk": {
       "sha": "10ce024c9f5b1ea739fca9e239488ee4411f403c",
-      "main_runs": [
+      "runs": [
         39060396338,
         39060462972
       ],
-      "status": "TWICE_VERIFIED"
+      "status": "TWICE_GREEN"
     },
     "core": {
       "sha": "dc94a185cade51d951780248e11a669ece770f65",
-      "main_runs": [
+      "runs": [
         39060680237,
         39060804061
       ],
-      "status": "TWICE_VERIFIED"
+      "status": "TWICE_GREEN"
     },
     "web": {
       "sha": "c9f76d1cd71a11a478e3b98e352cf328aa445641",
-      "pr": 4,
-      "pr_run": 39063901064,
-      "main_run": 39064309813,
-      "status": "PR_PASS_MAIN_IN_PROGRESS"
+      "runs": [
+        39064309813,
+        39064675485
+      ],
+      "status": "TWICE_GREEN"
     },
     "desktop": {
-      "base_main": "f961c92a73042101a4219ddce5e5da14de22df50",
-      "candidate": "de7a099c5b31a03c961eb860b6022374cbc0dcc0",
+      "sha": "a1a23017f39e049f762764ad0a3ed6eafeb302c2",
       "pr": 5,
       "pr_run": 39064374670,
-      "status": "PR_CI_IN_PROGRESS; DO_NOT_CLAIM_PINS_ON_MAIN"
+      "main_runs": [
+        39394712495,
+        39396757969
+      ],
+      "status": "PR_AND_FIRST_MAIN_GREEN_SECOND_MAIN_PENDING"
     }
+  },
+  "active_security_remediation": {
+    "repository": "CineHarbor/cineharbor-web",
+    "pull_request": 5,
+    "candidate_head": "fb0673b36fe35d9b258c36437109ae6357130335",
+    "status": "UNMERGED_FULL_AUDIT_HIGH_FINDING",
+    "precisely_scoped_patches": 9,
+    "direct_upgrades": [
+      "next@15.5.27",
+      "swiper@12.1.2",
+      "eslint-config-next@15.5.27",
+      "postcss@8.5.23",
+      "typescript@5.9.3"
+    ],
+    "full_audit_evidence": {
+      "from_run": 39396526681,
+      "artifact_id": 12251214863,
+      "critical": 0,
+      "high": 1,
+      "moderate": 3,
+      "low": 1
+    },
+    "production_audit_evidence": {
+      "from_run": 39397195391,
+      "artifact_id": 12252495648,
+      "critical": 0,
+      "high": 1,
+      "moderate": 1,
+      "low": 0
+    },
+    "unpatched_high": {
+      "package": "braces",
+      "version": "3.0.3",
+      "advisory": "GHSA-vfj7-8cjw-p6xm",
+      "paths": [
+        "next-pwa/globby/fast-glob/micromatch/braces",
+        "@typescript-eslint/typescript-estree/globby/fast-glob/micromatch/braces"
+      ],
+      "patched_version": "none reported",
+      "disposition": "UNRESOLVED_SECURITY_GATE_NOT_WAIVED"
+    },
+    "note": "Historical audit snapshot 32 total advisories predates patched PR; latest patched source must still pass exact CI and full audits. No published release."
   }
 }
