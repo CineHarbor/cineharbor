@@ -191,8 +191,8 @@
     }
   ],
   "recovery_evidence": ".agnir/evidence/2026-09-19-execution-recovery.md",
-  "latest_execution_evidence": ".agnir/evidence/2026-10-20-desktop-merge-and-web-security.md",
-  "last_reconciled_utc_date": "2026-10-20",
+  "latest_execution_evidence": ".agnir/evidence/2026-10-21-hydration-and-installer-checkpoint.md",
+  "last_reconciled_utc_date": "2026-10-21",
   "priority": "ACTUAL_NATIVE_INSTALLATION_FIRST",
   "publication_deferred_gates": [
     "MACOS_DEVELOPER_ID_AND_NOTARIZATION",
@@ -203,7 +203,7 @@
     "CineHarbor/cineharbor": "d91fbf77f690f8625dbd13537a41518acf1a205a",
     "CineHarbor/cineharbor-core": "dc94a185cade51d951780248e11a669ece770f65",
     "CineHarbor/cineharbor-addon-sdk": "10ce024c9f5b1ea739fca9e239488ee4411f403c",
-    "CineHarbor/cineharbor-web": "c9f76d1cd71a11a478e3b98e352cf328aa445641",
+    "CineHarbor/cineharbor-web": "843f2d1fb15bf11ab7c777d5c6e5f7ff66c771f0",
     "CineHarbor/cineharbor-desktop": "a1a23017f39e049f762764ad0a3ed6eafeb302c2",
     "CineHarbor/cineharbor-worker": "bb26dffab86813d42d072eca3ac6af1f1e25cc66",
     "CineHarbor/cineharbor-download-site": "531a3e731f9c1027ea81676491a068d35bfd04f6"
@@ -225,7 +225,7 @@
     }
   ],
   "native_installed_acceptance": {
-    "status": "PATCHED_SOURCE_PR_THREE_PLATFORM_INSTALL_PASSED_FIRST_MAIN_PASSED_SECOND_RUNNING",
+    "status": "THREE_PLATFORM_TWICE_MAIN_VERIFIED_ON_PREVIEW_PREDECESSOR; NEW_WEB_PIN_TEST_PENDING",
     "repository": "CineHarbor/cineharbor-desktop",
     "main_revision": "a1a23017f39e049f762764ad0a3ed6eafeb302c2",
     "pr_number": 5,
@@ -235,10 +235,18 @@
     "main_first_run": 39394712495,
     "main_first_status": "SUCCESS",
     "main_second_run": 39396757969,
-    "main_second_status": "IN_PROGRESS_AT_RECONCILIATION",
+    "main_second_status": "SUCCESS",
     "scope": "Real unsigned installation, two installed starts, local sidecar health and SQLite marker retention",
     "manual_gui_playback_downloads": "NOT_VERIFIED",
-    "formal_signed_updater": "DEFERRED_TO_PUBLIC_RELEASE"
+    "formal_signed_updater": "DEFERRED_TO_PUBLIC_RELEASE",
+    "replacement_candidate": {
+      "pr": 6,
+      "branch": "chore/repin-next15-web-20261020",
+      "sha": "5d77b0f316f0874d53485b1467a0596a592db1a3",
+      "web_pin": "843f2d1fb15bf11ab7c777d5c6e5f7ff66c771f0",
+      "run_id": 39564339126,
+      "status": "PR_CI_IN_PROGRESS"
+    }
   },
   "dependency_audit_snapshot": {
     "run_id": 35511058147,
@@ -319,12 +327,11 @@
       "status": "TWICE_GREEN"
     },
     "web": {
-      "sha": "c9f76d1cd71a11a478e3b98e352cf328aa445641",
-      "runs": [
-        39064309813,
-        39064675485
-      ],
-      "status": "TWICE_GREEN"
+      "sha": "843f2d1fb15bf11ab7c777d5c6e5f7ff66c771f0",
+      "pr": 6,
+      "pr_run": 39563268674,
+      "main_first_run": 39564179775,
+      "status": "PR_FUNCTIONAL_SUCCESS_MAIN_FIRST_RUNNING; SECOND_PENDING"
     },
     "desktop": {
       "sha": "a1a23017f39e049f762764ad0a3ed6eafeb302c2",
@@ -334,49 +341,23 @@
         39394712495,
         39396757969
       ],
-      "status": "PR_AND_FIRST_MAIN_GREEN_SECOND_MAIN_PENDING"
+      "status": "EXACT_MAIN_TWICE_SUCCESS_BUT_STALE_WEB_PIN"
     }
   },
   "active_security_remediation": {
     "repository": "CineHarbor/cineharbor-web",
-    "pull_request": 5,
-    "candidate_head": "fb0673b36fe35d9b258c36437109ae6357130335",
-    "status": "UNMERGED_FULL_AUDIT_HIGH_FINDING",
-    "precisely_scoped_patches": 9,
-    "direct_upgrades": [
-      "next@15.5.27",
-      "swiper@12.1.2",
-      "eslint-config-next@15.5.27",
-      "postcss@8.5.23",
-      "typescript@5.9.3"
-    ],
-    "full_audit_evidence": {
-      "from_run": 39396526681,
-      "artifact_id": 12251214863,
-      "critical": 0,
-      "high": 1,
-      "moderate": 3,
-      "low": 1
-    },
-    "production_audit_evidence": {
-      "from_run": 39397195391,
-      "artifact_id": 12252495648,
-      "critical": 0,
-      "high": 1,
-      "moderate": 1,
-      "low": 0
-    },
+    "merged_pr": 5,
+    "main_sha": "d201afb447db931a3cd4116746d535818148bfd9",
+    "status": "MERGED_TO_WEB_MAIN_THEN_PREVIEW_FIX_PR_6_MERGED; BLOCKING_HIGH_UNPATCHED",
+    "critical": 0,
+    "high": 1,
     "unpatched_high": {
       "package": "braces",
       "version": "3.0.3",
       "advisory": "GHSA-vfj7-8cjw-p6xm",
-      "paths": [
-        "next-pwa/globby/fast-glob/micromatch/braces",
-        "@typescript-eslint/typescript-estree/globby/fast-glob/micromatch/braces"
-      ],
+      "path": "next-pwa > globby > fast-glob > micromatch > braces",
       "patched_version": "none reported",
-      "disposition": "UNRESOLVED_SECURITY_GATE_NOT_WAIVED"
-    },
-    "note": "Historical audit snapshot 32 total advisories predates patched PR; latest patched source must still pass exact CI and full audits. No published release."
+      "disposition": "NOT_WAIVED_FULL_AUDIT_FAILING"
+    }
   }
 }
